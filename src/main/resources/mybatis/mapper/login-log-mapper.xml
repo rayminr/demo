@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LoginLog">
+
+    <insert id="insert" parameterType="LoginLogDTO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO T_LOGIN_LOG
+        (
+            LOGIN_SRC,
+            LOGIN_TYPE,
+            LOGIN_ACCOUNT,
+            LOGIN_PWD,
+            LOGIN_TIME,
+            LOGIN_IP,
+            LOGIN_AGENT
+        )
+        VALUES
+        (
+            #{loginSrc},
+            #{loginType},
+            #{loginAccount},
+            #{loginPwd},
+            #{loginTime},
+            #{loginIp},
+            #{loginAgent}
+        )
+    </insert>
+
+</mapper>
+
+

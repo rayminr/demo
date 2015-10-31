@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Post">
+
+    <resultMap id="PostMap" type="PostDTO">
+        <id property="id" column="ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="userIp" column="USER_IP"/>
+        <result property="userAgent" column="USER_AGENT"/>
+        <result property="mimeType" column="MIME_TYPE"/>
+        <result property="type" column="TYPE"/>
+        <result property="title" column="TITLE"/>
+        <result property="excerpt" column="EXCERPT"/>
+        <result property="content" column="CONTENT"/>
+        <result property="status" column="STATUS"/>
+        <result property="commentStatus" column="COMMENT_STATUS"/>
+        <result property="commentCnt" column="COMMENT_CNT"/>
+        <result property="createdAt" column="CREATED_AT"/>
+        <result property="createdBy" column="CREATED_BY"/>
+        <result property="updatedAt" column="UPDATED_AT"/>
+        <result property="updatedBy" column="UPDATED_BY"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="PostDTO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO T_POST
+        (
+            USER_ID,
+            USER_NAME,
+            USER_IP,
+            USER_AGENT,
+            MIME_TYPE,
+            TYPE,
+            TITLE,
+            EXCERPT,
+            CONTENT,
+            STATUS,
+            COMMENT_STATUS,
+            COMMENT_CNT,
+            CREATED_AT,
+            CREATED_BY,
+            UPDATED_AT,
+            UPDATED_BY
+        )
+        VALUES
+        (
+            #{userId},
+            #{userName},
+            #{userIp},
+            #{userAgent},
+            #{mimeType},
+            #{type},
+            #{title},
+            #{excerpt},
+            #{content},
+            #{status},
+            #{commentStatus},
+            #{commentCnt},
+            #{createAt},
+            #{createdBy},
+            #{updateAt},
+            #{updatedBy}
+        )
+    </insert>
+
+    <update id="update" parameterType="PostDTO">
+        UPDATE T_POST
+        <set>
+            <if test="title != null and title != '' ">
+                TITLE = #{title},
+            </if>
+            <if test="content != null and content != '' ">
+                CONTENT = #{content},
+            </if>
+            <if test="updatedAt != null and updatedAt != '' ">
+                UPDATED_AT = #{updatedAt},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <select id="selectById" parameterType="Long" resultMap="PostMap" fetchSize="1">
+        SELECT * FROM T_POST WHERE ID=#{id}
+    </select>
+
+    <select id="countByCnd" parameterType="PostDTO" resultType="Integer">
+        SELECT COUNT(*) FROM T_POST
+        <include refid="cndRefId"/>
+    </select>
+
+    <select id="selectByCnd" parameterType="PostDTO" resultMap="PostMap">
+        SELECT * FROM T_POST
+        <include refid="cndRefId"/>
+    </select>
+
+    <sql id="cndRefId">
+        <where>
+            <if test="userId != null and userId != '' ">
+                USER_ID = #{userId}
+            </if>
+            <if test="userName != null and userName != '' ">
+                AND USER_NAME = #{userName}
+            </if>
+            <if test="status != null and status != '' ">
+                AND STATUS = #{status}
+            </if>
+        </where>
+    </sql>
+
+</mapper>
+
+

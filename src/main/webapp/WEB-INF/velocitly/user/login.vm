@@ -1,0 +1,33 @@
+<html>
+<head>
+    <title>title</title>
+</head>
+
+<body>
+<h2>#test</h2>
+<form id="login" method="post" action="/mytime/login.do" name="login">
+<table width="600" border="1" cellspacing="1" cellpadding="1">
+    <tr>
+        <td >
+            #foreach( $key in $user.getRetErrorMap().keySet() )
+                <li>Key: $key -> Value: $user.getRetErrorMap().get($key)</li>
+            #end
+        </td>
+        <td >
+            <div align="center">
+                登录名：<input id="account" name="account" type="text" value="" > <br>
+                密码：<input id="pwd" name="pwd" type="password" value="" >       <br>
+                验证码：<input id="validateCode" name="validateCode" type="text" value="" >  <br>
+                <input name="login" type="button" value="login" style="cursor:hand" onclick="submit();return false;" >
+            </div>
+        </td>
+
+    </tr>
+    <tr>
+</table>
+</form>
+<div>
+    #my_include("common/pageFooter.vm")
+</div
+</body>
+</html>

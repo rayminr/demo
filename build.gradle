@@ -1,0 +1,222 @@
+// plugins
+apply plugin: "jetty"
+apply plugin: "idea"
+apply plugin: "eclipse"
+apply plugin: "maven"
+
+//自定义属性
+sourceCompatibility = "$jdk_version"
+targetCompatibility = "$jdk_version"
+
+ideaProject {
+    def javaVersion = "$jdk_version"
+    def languageLevel = "$jdk_version"
+}
+
+sourceSets {
+    main {
+        resources.srcDirs += 'src/main/webapp'
+    }
+    test {
+        resources.srcDirs += 'src/test/webapp'
+    }
+}
+
+//定义仓库
+repositories {
+    //mavenLocal()  // 本地仓库
+    //maven { url "http://172.17.20.5:8888/nexus/content/groups/public/" } // 自定义库地址
+    mavenCentral()  // 中央库
+}
+
+configurations {
+    emma
+}
+
+def env = System.getProperty("env") == null ? System.getenv("ENVIRONMENT") : System.getProperty("env");
+def _appName = System.getProperty("app.name") == null ? "$app_name" : System.getProperty("app.name");
+def _httpPort = System.getProperty("httpPort") == null ? 7070 : Integer.valueOf(System.getProperty("httpPort"));
+def _stopPort = System.getProperty("stopPort") == null ? 7071 : Integer.valueOf(System.getProperty("stopPort"));
+def _lastModifyTime = System.getProperty("lastModifyTime") == null ? System.currentTimeMillis() : System.getProperty("lastModifyTime");
+def _humanName = System.getProperty("humanName") == null ? "" : System.getProperty("humanName");
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+stopKey = 'stop-jetty'
+stopPort = Integer.valueOf(_stopPort)
+httpPort = Integer.valueOf(_httpPort)
+
+ext {
+    log4j_version = "1.2.17"
+    slf4j_log4j_version = "1.7.7"
+    servlet_version = "2.5"
+    gson_version = "1.7.1";
+    joda_version = "1.6.2"
+    beanutils_version = "1.9.0"
+    dbcp_version = "1.4"
+    velocity_version = "1.7"
+    velocity_tools_version = "2.0"
+    spring_version = "3.2.0.RELEASE"
+    mybatis_version = "3.2.7"
+    mybatis_spring_version = "1.2.2"
+    lucene_version = "4.9.0"
+    mysql_version = "5.1.31"
+    unitils_version = "3.4.2"
+    emma_version = "2.0.5312"
+    poi_version = "3.2-FINAL"
+    ehcache_version="2.6.2"
+
+
+}
+
+//增加依赖
+dependencies {
+
+    def log4j_lib = ["log4j:log4j:$log4j_version",
+                    "org.slf4j:slf4j-log4j12:$slf4j_log4j_version"]
+
+    def servlet_lib = ["javax.servlet:servlet-api:$servlet_version"]
+
+    def ehcache_lib = ["net.sf.ehcache:ehcache-core:$ehcache_version"]
+
+    def common_lib = ["com.google.code.gson:gson:$gson_version",
+            "joda-time:joda-time:$joda_version",
+            "commons-beanutils:commons-beanutils:$beanutils_version"]
+
+    def view_lib = ["org.apache.velocity:velocity:$velocity_version",
+            "org.apache.velocity:velocity-tools:$velocity_tools_version"]
+
+    def spring_lib = ["org.springframework:spring-core:$spring_version",
+            "org.springframework:spring-expression:$spring_version",
+            "org.springframework:spring-aop:$spring_version",
+            "org.springframework:spring-beans:$spring_version",
+            "org.springframework:spring-tx:$spring_version",
+            "org.springframework:spring-jdbc:$spring_version",
+            "org.springframework:spring-orm:$spring_version",
+            "org.springframework:spring-web:$spring_version",
+            "org.springframework:spring-webmvc:$spring_version",
+            "org.springframework:spring-context:$spring_version",
+            "org.springframework:spring-context-support:$spring_version"]
+
+    def orm_lib = ["org.mybatis:mybatis:$mybatis_version",
+            "org.mybatis:mybatis-spring:$mybatis_spring_version",
+            "commons-dbcp:commons-dbcp:$dbcp_version",
+            "mysql:mysql-connector-java:$mysql_version"]
+
+    def search_lib = ["org.apache.lucene:lucene-core:$lucene_version"]
+
+    def test_lib = ["org.apache.poi:poi:$poi_version",
+            "org.unitils:unitils-core:$unitils_version",
+            "org.unitils:unitils-dbunit:$unitils_version",
+            "org.unitils:unitils-database:$unitils_version",
+            "org.unitils:unitils-spring:$unitils_version",
+            "org.springframework:spring-test:$spring_version"]
+
+
+    def emma_lib = ["emma:emma:$emma_version", "emma:emma_ant:$emma_version"]
+
+    def local_lib = fileTree(dir: 'lib', exclude: 'mysql*.jar')
+
+    compile("org.apache.velocity:velocity-tools:$velocity_tools_version") {
+        exclude(group: 'org.apache.struts', module: 'struts-core')
+        exclude(group: 'org.apache.struts', module: 'struts-taglib')
+        exclude(group: 'org.apache.struts', module: 'struts-tiles')
+    }
+
+    providedCompile servlet_lib
+    compile log4j_lib, common_lib, view_lib, spring_lib, orm_lib, search_lib, ehcache_lib, local_lib
+    testCompile test_lib
+    emma emma_lib
+}
+
+war {
+    baseName = "$app_name"
+    classpath = configurations.runtime.filter {
+        !it.name.contains("servlet-api") && !it.name.contains("javax.servlet-3.0.jar")
+    }
+    webInf {
+        into('classes') {
+            from sourceSets.main.output
+            //exclude '**/' + _appName + '*.properties'
+            //exclude '**/log4j.properties'
+        }
+    }
+
+    manifest {
+        attributes("Manifest-Version": "$app_version",
+                "LAST_MODIFY_TIME": _lastModifyTime,
+                "GIT_VERSION": _humanName)
+    }
+
+}
+
+test {
+    jvmArgs "-Demma.coverage.out.file=build/tmp/emma/metadata.emma", "-Demma.coverage.out.merge=true"
+
+    doFirst {
+        ant.taskdef(name: "emma", classname: "com.vladium.emma.emmaTask", classpath: configurations.emma.asPath)
+        ant.path(id: "run.classpath") {
+            pathelement(location: sourceSets.main.output.classesDir.absolutePath)
+        }
+        ant.emma(verbosity: 'info') {
+            instr(merge: "true", destdir: 'build/tmp/emma/instr', instrpathref: "run.classpath", metadatafile: 'build/tmp/emma/metadata.emma') {
+                instrpath {
+                    fileset(dir: sourceSets.main.output.classesDir.absolutePath, includes: "*.class")
+                }
+            }
+        }
+        setClasspath(files("$buildDir/tmp/emma/instr") + configurations.emma + getClasspath())
+    }
+    doLast {
+        ant.emma(enabled: "true") {
+            report(sourcepath: "src/main/java") {
+                fileset(dir: "build/tmp/emma") {
+                    include(name: "*.emma")
+                }
+                txt(outfile: "build/reports/emma/coverage.txt")
+                html(outfile: "build/reports/emma/coverage.html")
+                xml(outfile: "build/reports/emma/coverage.xml")
+            }
+        }
+    }
+}
+
+task dumpSystemInfo << {
+    println "\n*****************************************************************************"
+    println "Current module [" + _appName + "] env=" + env
+    println "Current module [" + _appName + "] httpPort=" + httpPort + " stopPort=" + stopPort
+    println "Current module [" + _appName + "] log home: " + System.getProperty("app.log.home")
+    println "*****************************************************************************\n"
+}
+
+
+defaultTasks 'dumpSystemInfo'
+war.dependsOn dumpSystemInfo
+build.dependsOn dumpSystemInfo
+compileJava.dependsOn dumpSystemInfo
+assemble.dependsOn dumpSystemInfo
+clean.dependsOn dumpSystemInfo
+jettyRun.dependsOn dumpSystemInfo
+jettyRunWar.dependsOn dumpSystemInfo
+
+//给test任务传递参数
+//test {
+//    systemProperties "property": "value"
+//}
+
+//Jar包位置
+//uploadArchives {
+//    repositories {
+//        flatDir {
+//            dirs "repos"
+//        }
+//    }
+//}
+//发布到maven仓库
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            repository(url: "file://localhost/tmp/myRepo/")
+//        }
+//    }
+//}

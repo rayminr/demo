@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>title</title>
+</head>
+
+<body>
+<h2>#test</h2>
+<form id="registerUser" name="registerUser" method="post" action="/mytime/user/register.do" >
+<table width="600" border="1" cellspacing="1" cellpadding="1">
+    <tr>
+        <td >
+            #foreach( $key in $user.getRetErrorMap().keySet() )
+                <li>Key: $key -> Value: $user.getRetErrorMap().get($key)</li>
+            #end
+        </td>
+        <td >
+            <div align="center">
+                用户名：<input id="name" name="name" type="text" value="" > <br>
+                手机：<input id="mobile" name="mobile" type="text" value="" > <br>
+                邮箱：<input id="email" name="email" type="text" value="" > <br>
+                密码：<input id="pwd" name="pwd" type="password" value="" >       <br>
+                验证码：<input id="validateCode" name="validateCode" type="text" value="" >  <br>
+                <input name="register" type="button" value="register" style="cursor:hand" onclick="submit();return false;" >
+            </div>
+        </td>
+
+    </tr>
+    <tr>
+</table>
+</form>
+<div>
+    #my_include("common/pageFooter.vm")
+</div
+</body>
+</html>

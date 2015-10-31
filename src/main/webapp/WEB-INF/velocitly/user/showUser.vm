@@ -1,0 +1,46 @@
+<html>
+<head>
+    <title>title</title>
+    <script type="text/javascript" src="/mytime/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#lnk").click(function(){
+                $.post("/banshi/user/showUser.ajax", { id: "1"},
+                        function(data){
+                            alert("Data Loaded: " + data.retCode);
+                        },"json");
+            });
+        });
+    </script>
+</head>
+
+<body>
+<h2>#test</h2>
+<table width="600" border="1" cellspacing="1" cellpadding="1">
+    <tr bgcolor="#999999">
+        <td>ID</td>
+        <td>Name</td>
+        <td>Nick Name</td>
+        <td>Mobile</td>
+        <td>Email</td>
+        <td>createdAt</td>
+    </tr>
+    <tr>
+        <td>
+            <button id="lnk" type="button">详细</button>
+        </td>
+        <td>${user.name}</td>
+        <td>${user.nickName}</td>
+        <td>${user.mobile}</td>
+        <td>${user.email}</td>
+        <td>$date.format('yyyy-M-d H:m:s',${user.createdAt})</td>
+    </tr>
+    <tr>
+        <a href="/mytime/user/addUser.do">注册用户</a>
+    </tr>
+</table>
+<div>
+    #my_include("common/pageFooter.vm")
+</div
+</body>
+</html>

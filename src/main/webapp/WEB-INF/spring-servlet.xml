@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 准对servlet的需要单独指定 -->
+    <context:component-scan base-package="com.banshi.controller"/>
+
+    <!-- 配置velocity -->
+    <bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="/WEB-INF/velocitly/"/>
+        <property name="configLocation" value="classpath:velocity.properties"/>
+    </bean>
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <property name="suffix" value=".vm"/>
+        <property name="contentType" value="text/html; charset=UTF-8"/>
+        <!-- 使用springMacro、使用servlet的对象 -->
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <property name="exposeRequestAttributes" value="true"/>
+        <property name="exposeSessionAttributes" value="true"/>
+        <!-- spring的日期格式化 -->
+        <!-- spring不支持velocity-tool-2.0 需要重载VelocityToolboxView的createVelocityContext方法-->
+        <property name="viewClass" value="com.banshi.frame.web.VelocityToolboxViewExt"></property>
+        <property name="toolboxConfigLocation" value="/WEB-INF/velocity-tool.xml"/>
+    </bean>
+
+    <!--    <bean id="multipartResolver"
+              class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+            &lt;!&ndash; 设置上传文件的最大尺寸为10MB &ndash;&gt;
+            <property name="maxUploadSize">
+                <value>100010485761</value>
+            </property>
+        </bean>-->
+
+</beans>

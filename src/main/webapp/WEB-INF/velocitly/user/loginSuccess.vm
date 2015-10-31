@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>title</title>
+</head>
+
+<body>
+<h2>#test</h2>
+<table width="600" border="1" cellspacing="1" cellpadding="1">
+    <tr bgcolor="#999999">
+        <td>ID</td>
+        <td>Name</td>
+        <td>Nick Name</td>
+        <td>Mobile</td>
+        <td>Email</td>
+        <td>createdAt</td>
+    </tr>
+    <tr>
+        <td>
+            <a href="user/showUser.do?id=$!{user.id}">$!{user.id}</a>
+        </td>
+        <td>$!{user.nameDisp}</td>
+        <td>$!{user.nickName}</td>
+        <td>$!{user.mobile}</td>
+        <td>$!{user.emailDisp}</td>
+        <td>$date.format('yyyy-M-d H:m:s',$!{user.createdAt})</td>
+    </tr>
+</table>
+<div>
+    #my_include("common/pageFooter.vm")
+</div
+</body>
+</html>

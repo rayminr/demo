@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>留下脚印</title>
+
+<link href="/mytime/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/mytime/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="/mytime/css/slider.css" rel="stylesheet" type="text/css" />
+<link href="/mytime/css/css_slider1/default.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="/mytime/css/css_slider1/nivo-slider.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="/mytime/css/hover.css" rel="stylesheet" type="text/css" />
+<link href="/mytime/css/columns.css" rel="stylesheet" type="text/css" />
+<link href="/mytime/css/hover_image.css" rel="stylesheet" type="text/css" />
+<link href="/mytime/css/lightbox.css" rel="stylesheet" type="text/css" />
+<link href="/mytime/css/buttons.css" rel="stylesheet" type="text/css" />
+<link href="/mytime/css/widgets.css" rel="stylesheet" type="text/css" />
+<link href="/mytime/css/light.css" rel="stylesheet" type="text/css" />
+<link href="/mytime/css/stimenu.css" rel="stylesheet" type="text/css" />
+<link href="/mytime/css/responsive.css" rel="stylesheet" type="text/css" />
+
+<!--[if IE 8]>
+    <link href="/banshi/css/style_IE.css" rel="stylesheet" type="text/css">
+    <![endif]-->
+<script type="text/javascript" src="/mytime/js/ie.html5.js"></script>
+
+<!-- JQUERY -->
+<script type="text/javascript" src="/mytime/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/mytime/js/jquery.easing.1.3.js"></script>
+
+<!-- JQUERY_UI -->
+<script type="text/javascript" src="/mytime/js/jquery.ui.core.js"></script>
+
+<!-- SLIDER_NIVO --> 
+<script type="text/javascript" src="/mytime/js/jquery.nivo.slider.pack.js"></script>
+<script type="text/javascript">
+    $(window).load(function() {
+        $('.nivo_slider').nivoSlider({
+			manualAdvance: true,
+			directionNavHide:true});
+    });
+</script>
+
+<!-- MENU -->
+<script src="/mytime/js/menu.js" type="text/javascript" ></script>
+
+<!-- HOVER_BUTTON -->
+<script src="/mytime/js/hover.js" type="text/javascript"></script>
+<script src="/mytime/js/buttons.js"t ype="text/javascript"></script>
+
+<!-- IMAGE -->
+<script src="/mytime/js/image.js" type="text/javascript"> </script>
+<script src="/mytime/js/lightbox.js" type="text/javascript"></script>
+<script src="/mytime/js/jquery.capSlide.js" type="text/javascript"></script>
+
+<!-- GALLERY -->
+<script src="/mytime/js/lazyload.js" type="text/javascript"></script>
+<script src="/mytime/js/gallery.js" type="text/javascript"> </script>
+<script src="/mytime/js/jquery.masonary.js" type="text/javascript"> </script>
+<script src="/mytime/ckeditor/ckeditor.js" type="text/javascript"></script>
+<script src="/mytime/ckfinder/ckfinder.js" type="text/javascript"></script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+
+<!-- BEGIN menu -->
+<header class="header_silverbackground">
+    <div class="menu">
+        <a class="logo" href="/mytime/index.html"><img src="/mytime/images/logo.png" alt="时间都去哪了" /></a>
+
+        <div class="blockeasing-wrapp">
+            <h6 class="blockeasing-header">Menu</h6>
+            <ul class="blockeasing">
+                <li><a href="/mytime/index.html">成长足迹</a></li>
+                <li class="current"><a href="edit.vm">留下脚印</a></li>
+                <li><a href="bolg_list.html">我的日历</a></li>
+                <li><a href="/mytime/contact.html">怎样的我</a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+</header>
+<!-- /END menu -->
+
+<!-- BEGIN middle part -->
+<section id="content">
+<div class="href_path_link"><h6>您所在位置: <a href="/mytime/index.html">rayminr</a> > 留下脚印</h6></div>
+<div class="blogcontent">
+    <form  id="postForm" name="postForm" action="/mytime/post/save.do" method="post" >
+        #foreach( $key in $post.getRetErrorMap().keySet() )
+            <li>Key: $key -> Value: $post.getRetErrorMap().get($key)</li>
+        #end
+        <input type="hidden" id="id" name="id" value="$!{post.id}"/>
+        <div class="href_path_about"><h3>标题：<input name="postTitle" size="100" value="$!{post.postTitle}"/></h3></div>
+        <textarea class="ckeditor" name="postContent">$!{post.postContent}</textarea>
+    <a class="con_button con_button2" href="javascript:postForm.submit();"><span class="con_button_text">保存日志</span><span class="con_button_arrow"><span>保存日志</span></span></a>
+    </form>
+</div>
+    <script type="text/javascript">
+        // This is a check for the CKEditor class. If not defined, the paths must be checked.
+        if ( typeof CKEDITOR == 'undefined' )
+        {
+            document.write(
+                    '<strong><span style="color: #ff0000">Error</span>: CKEditor not found</strong>.' +
+                            'This sample assumes that CKEditor (not included with CKFinder) is installed in' +
+                            'the "/ckeditor/" path. If you have it installed in a different place, just edit' +
+                            'this file, changing the wrong paths in the &lt;head&gt; (line 5) and the "BasePath"' +
+                            'value (line 32).' ) ;
+        }
+        else
+        {
+            var editor = CKEDITOR.replace('postContent');
+
+            // Just call CKFinder.setupCKEditor and pass the CKEditor instance as the first argument.
+            // The second parameter (optional), is the path for the CKFinder installation (default = "/ckfinder/").
+            CKFinder.setupCKEditor( editor, '/banshi/ckfinder/' ) ;
+
+            // It is also possible to pass an object with selected CKFinder properties as a second argument.
+            // CKFinder.setupCKEditor( editor, { basePath : '../', skin : 'v1' } ) ;
+        }
+    </script>
+
+<div class="clear"></div>
+</section>
+<!-- /END middle part -->
+
+<!-- BEGIN footer -->
+<footer id="footer">
+    <div id="footer-wrapper">
+        <div class="footer-column">
+            <div class="widget">
+                <h5>联系我</h5>
+                <ul>
+                    <li><a href="http://www.91time.me" class="footer_link">www.91time.me</a></li>
+                    <li><a href="mailto:rayminr@91time.me" class="footer_link">rayminr@91time.me</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-column last">
+            <div class="widget">
+                <h5>关注我</h5>
+                <div class="clear"></div>
+                <!-- BEGIN social icon -->
+                <div class="fadehover hoverfooter">
+                    <a class="a" href="#"><img src="/mytime/images/f.png" alt="facebook" /></a>
+                    <a class="b" href="#"><img src="/mytime/images/f1.png" alt="facebook" /></a>
+                </div>
+                <div class="fadehover hoverfooter">
+                    <a class="a" href="#"><img src="/mytime/images/t.png" alt="twitter" /></a>
+                    <a class="b" href="#"><img src="/mytime/images/t1.png" alt="" /></a>
+                </div>
+                <div class="fadehover hoverfooter">
+                    <a class="a" href="#"><img src="/mytime/images/g.png" alt="google+" /></a>
+                    <a class="b" href="#"><img src="/mytime/images/g1.png" alt="google+" /></a>
+                </div>
+                <div class="fadehover hoverfooter">
+                    <a class="a" href="#"><img src="/mytime/images/r.png" alt="rss" /></a>
+                    <a class="b" href="#"><img src="/mytime/images/r1.png" alt="rss" /></a>
+                </div>
+                <!-- /END social icon -->
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</footer>
+<!-- /END footer -->
+
+</body>
+</html>

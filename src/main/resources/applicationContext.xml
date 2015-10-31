@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:cache="http://www.springframework.org/schema/cache" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-3.0.xsd
+         http://www.springframework.org/schema/tx
+         http://www.springframework.org/schema/tx/spring-tx.xsd
+         http://www.springframework.org/schema/cache
+         http://www.springframework.org/schema/cache/spring-cache.xsd
+         http://www.springframework.org/schema/mvc
+         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--开启注解功能-->
+    <context:annotation-config/>
+    <!-- 扫描package，以完成Bean创建和自动依赖注入的功能 -->
+    <context:component-scan base-package="com.banshi"/>
+
+    <!--加载配置文件-->
+    <bean id="propertyPlaceholderConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:app-env.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--&lt;!&ndash; 缓存配置 &ndash;&gt;
+    <bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" scope="singleton">
+        <property name="configLocation"  value="classpath:cache/ehcache.xml"/>
+    </bean>
+    &lt;!&ndash; 默认是cacheManager &ndash;&gt;
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager"  ref="cacheManagerFactory"/>
+    </bean>
+    &lt;!&ndash; 支持缓存注解 &ndash;&gt;
+    <cache:annotation-driven cache-manager="cacheManager" />
+-->
+
+    <!-- 声明使用注解式事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!-- 使用spring jdbc管理事务 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+    </bean>
+
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory"/>
+    </bean>
+
+    <bean id="userContextFilter" class="com.banshi.frame.filter.UserContextFilter"/>
+
+    <!-- 拦截器 -->
+    <mvc:interceptors>
+        <!-- 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 -->
+        <!--<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />-->
+        <!-- 多个拦截器,顺序执行 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/*/*.do"/>
+            <mvc:exclude-mapping path="/toLogin.do"/>
+            <mvc:exclude-mapping path="/login.do"/>
+            <mvc:exclude-mapping path="/logout.do"/>
+            <bean class="com.banshi.frame.interceptor.MustLoginInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/*/*.ajax"/>
+            <bean class="com.banshi.frame.interceptor.AjaxMustLoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+</beans>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="User">
+
+    <resultMap id="UserMap" type="UserDTO">
+        <id property="id" column="ID"/>
+        <result property="name" column="NAME"/>
+        <result property="nameDisp" column="NAME_DISP"/>
+        <result property="nickName" column="NICK_NAME"/>
+        <result property="mobile" column="MOBILE"/>
+        <result property="email" column="EMAIL"/>
+        <result property="pwd" column="PWD"/>
+        <result property="type" column="TYPE"/>
+        <result property="src" column="SRC"/>
+        <result property="status" column="STATUS"/>
+        <result property="sex" column="SEX"/>
+        <result property="birthday" column="BIRTHDAY"/>
+        <result property="picUrl" column="PIC_URL"/>
+        <result property="lastLoginTime" column="LAST_LOGIN_TIME"/>
+        <result property="userIp" column="USER_IP"/>
+        <result property="createdAt" column="CREATED_AT"/>
+        <result property="createdBy" column="CREATED_BY"/>
+        <result property="updatedAt" column="UPDATED_AT"/>
+        <result property="updatedBy" column="UPDATED_BY"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="UserDTO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO T_USER
+        (
+            NAME,
+            NICK_NAME,
+            MOBILE,
+            EMAIL,
+            PWD,
+            TYPE,
+            SRC,
+            STATUS,
+            SEX,
+            BIRTHDAY,
+            PIC_URL,
+            LAST_LOGIN_TIME,
+            USER_IP,
+            CREATED_AT,
+            CREATED_BY,
+            UPDATED_AT,
+            UPDATED_BY
+        )
+        VALUES
+        (
+            #{name},
+            #{nickName},
+            #{mobile},
+            #{email},
+            #{pwd},
+            #{type},
+            #{src},
+            #{status},
+            #{sex},
+            #{birthday},
+            #{picUrl},
+            #{lastLoginTime},
+            #{userIp},
+            #{createdAt},
+            #{createdBy},
+            #{updatedAt},
+            #{updatedBy}
+        )
+    </insert>
+
+    <update id="update" parameterType="UserDTO">
+        UPDATE T_USER
+        <set>
+            <if test="name != null and name != '' ">
+                NAME = #{name},
+            </if>
+            <if test="nickName != null and nickName != '' ">
+                NICK_NAME = #{nickName},
+            </if>
+            <if test="mobile != null and mobile != '' ">
+                MOBILE = #{mobile},
+            </if>
+            <if test="email != null and email != '' ">
+                EMAIL = #{email},
+            </if>
+            <if test="pwd != null and pwd != '' ">
+                PWD = #{pwd},
+            </if>
+            <if test="type != null and type != '' ">
+                TYPE = #{type},
+            </if>
+            <if test="src != null and src != '' ">
+                SRC = #{src},
+            </if>
+            <if test="status != null and status != '' ">
+                STATUS = #{status},
+            </if>
+            <if test="sex != null and sex != '' ">
+                SEX = #{sex},
+            </if>
+            <if test="birthday != null and birthday != '' ">
+                BIRTHDAY = #{birthday},
+            </if>
+            <if test="picUrl != null and picUrl != '' ">
+                PIC_URL = #{picUrl},
+            </if>
+            <if test="lastLoginTime != null and lastLoginTime != '' ">
+                LAST_LOGIN_TIME = #{lastLoginTime},
+            </if>
+            <if test="userIp != null and userIp != '' ">
+                USER_IP = #{userIp},
+            </if>
+            UPDATED_AT = #{updatedAt},
+            UPDATED_BY = #{updatedBy}
+        </set>
+        where ID = #{id}
+    </update>
+
+    <select id="selectById" parameterType="Long" resultMap="UserMap" fetchSize="1">
+        SELECT * FROM T_USER WHERE ID=#{id}
+    </select>
+
+    <select id="selectByUniqueKey" parameterType="UserDTO" resultMap="UserMap" fetchSize="1">
+        SELECT * FROM T_USER WHERE 1=1
+        <choose>
+            <when test="mobile != null and mobile != '' ">
+                and MOBILE = #{mobile}
+            </when>
+            <when test="email != null and email != '' ">
+                and EMAIL = #{email}
+            </when>
+            <otherwise>
+                and NAME = #{name}
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="countByCnd" parameterType="UserDTO" resultType="Integer">
+        SELECT COUNT(*) FROM T_USER
+        <include refid="cndRefId"/>
+    </select>
+
+    <select id="selectByCnd" parameterType="UserDTO" resultMap="UserMap">
+        SELECT * FROM T_USER
+        <include refid="cndRefId"/>
+    </select>
+
+    <sql id="cndRefId">
+        <where>
+            <if test="type != null and type != '' ">
+                type = #{type}
+            </if>
+            <if test="src != null and src != '' ">
+                and src = #{src}
+            </if>
+            <if test="status != null and status != '' ">
+                and status = #{status}
+            </if>
+            <if test="sex != null and sex != '' ">
+                and sex = #{sex}
+            </if>
+            <if test="birthday != null and birthday != '' ">
+                and birthday = #{birthday}
+            </if>
+        </where>
+    </sql>
+
+</mapper>
+
+
