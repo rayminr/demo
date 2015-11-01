@@ -12,7 +12,7 @@
             overflowToDisk="true"
             diskPersistent="false"
             diskExpiryThreadIntervalSeconds="120"
-            memoryStoreEvictionPolicy="LRU" />
+            memoryStoreEvictionPolicy="LRU"/>
 
     <!--
     name：Cache的唯一标识
@@ -32,6 +32,6 @@
            diskPersistent="false"
            timeToIdleSeconds="0"
            timeToLiveSeconds="7200"
-           memoryStoreEvictionPolicy="LRU" />
+           memoryStoreEvictionPolicy="LRU"/>
 
 </ehcache>

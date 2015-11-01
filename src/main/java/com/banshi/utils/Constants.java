@@ -3,6 +3,8 @@ package com.banshi.utils;
 
 public class Constants {
 
+
+
     /*字符集UTF-8*/
     public static final String CHARSET_UTF_8 = "UTF-8";
 
@@ -20,12 +22,16 @@ public class Constants {
     /*cookie 根域*/
     public static final String COOKIE_DOMAIN_ROOT = "localhost";
 
-    /** cookie ut 过期时间(单位秒) */
+    /**
+     * cookie ut 过期时间(单位秒)
+     */
     public static final String COOKIE_KEY_UT = "ut";
     public static final int COOKIE_TIME_UT = -1;
 
-    /** cookie un 过期时间(单位秒) */
+    /**
+     * cookie un 过期时间(单位秒)
+     */
     public static final String COOKIE_KEY_UN = "un";
-    public static final int COOKIE_TIME_UN = 90 * 24 * 60 * 60 ;
+    public static final int COOKIE_TIME_UN = 90 * 24 * 60 * 60;
 
 }

@@ -52,13 +52,13 @@ mysql配置仍然保持默认区分大小写，所有SQL脚本中表和字段名
 解决办法：
 1）、以mysql的root用户登录，mysql -u root -p
 2）、创建用户
-   insert into mysql.user(Host,User,Password,ssl_cipher,x509_issuer,x509_subject) values("localhost","u_mytime",password("p_mytime"),'','','');
+   insert into mysql.user(Host,User,Password,ssl_cipher,x509_issuer,x509_subject) values("localhost","demo",password("demo123"),'','','');
 3)、创建数据库
-   create database MYTIME;
+   create database demo;
 4)、给用户授权
-   grant all privileges on MYTIME.* to u_mytime@localhost identified by 'p_mytime';
+   grant all privileges on demo.* to demo@localhost identified by 'demo123';
 5)、刷新权限表
    flush privileges;
 6)、修改密码
-   pdate mysql.user set password=password('新密码') where User="u_mytime" and Host="localhost";
+   pdate mysql.user set password=password('新密码') where User="demo" and Host="localhost";
    flush privileges;

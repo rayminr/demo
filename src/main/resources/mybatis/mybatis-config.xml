@@ -4,13 +4,13 @@
 
     <typeAliases>
         <typeAlias alias="UserDTO" type="com.banshi.model.dto.UserDTO"/>
-        <typeAlias alias="PostDTO" type="com.banshi.model.dto.PostDTO"/>
         <typeAlias alias="LoginLogDTO" type="com.banshi.model.dto.LoginLogDTO"/>
+        <typeAlias alias="sessionDTO" type="com.banshi.model.dto.SessionDTO" />
     </typeAliases>
 
     <mappers>
         <mapper resource="mybatis/mapper/user-mapper.xml"/>
-        <mapper resource="mybatis/mapper/post-mapper.xml"/>
         <mapper resource="mybatis/mapper/login-log-mapper.xml"/>
+        <mapper resource="mybatis/mapper/session-mapper.xml"/>
     </mappers>
 </configuration>

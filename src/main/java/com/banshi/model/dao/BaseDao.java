@@ -2,6 +2,7 @@ package com.banshi.model.dao;
 
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.orm.ibatis.SqlMapClientTemplate;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -14,6 +15,8 @@ public abstract class BaseDao {
 
     @Resource
     protected SqlSessionTemplate sqlSessionTemplate;
+
+    private SqlMapClientTemplate dalTemplate;
 
     public Object queryOne(String sqlId, Object object) {
         return sqlSessionTemplate.selectOne(sqlId, object);

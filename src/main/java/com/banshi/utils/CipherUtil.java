@@ -15,7 +15,7 @@ public class CipherUtil {
 
     /**
      * MAC算法可选以下多种算法
-     *
+     * <p/>
      * <pre>
      * HmacMD5
      * HmacSHA1
@@ -27,6 +27,8 @@ public class CipherUtil {
     public static final String MAC_MD5 = "HmacMD5";
     public static final String MAC_SHA = "HmacSHA1";
     public static final String MAC_SHA256 = "HmacSHA256";
+
+    public static final String MAC_SALT = "1aX#6$c*l8Fds%&!";
 
     /**
      * BASE64加密
@@ -54,16 +56,16 @@ public class CipherUtil {
      * MD5单向加密
      *
      * @param algorithm 算法
-     * @param data       加密前key值
-     * @return          加密后key值
+     * @param data      加密前key值
+     * @return 加密后key值
      * @throws Exception
      */
-    public static byte[] encryptMD5(String algorithm, byte[] data) throws Exception {
+    public static String encryptMD5(String algorithm, byte[] data) throws Exception {
 
         MessageDigest md5 = MessageDigest.getInstance(algorithm);
         md5.update(data);
 
-        return md5.digest();
+        return encryptBASE64(md5.digest());
 
     }
 
@@ -71,16 +73,16 @@ public class CipherUtil {
      * SHA单向加密
      *
      * @param algorithm 算法
-     * @param data       加密前key值
-     * @return          加密后key值
+     * @param data      加密前key值
+     * @return 加密后key值
      * @throws Exception
      */
-    public static byte[] encryptSHA(String algorithm, byte[] data) throws Exception {
+    public static String encryptSHA(String algorithm, byte[] data) throws Exception {
 
         MessageDigest sha = MessageDigest.getInstance(algorithm);
         sha.update(data);
 
-        return sha.digest();
+        return encryptBASE64(sha.digest());
 
     }
 
@@ -90,17 +92,16 @@ public class CipherUtil {
      * @param algorithm 算法
      * @param key       加密所需salt值
      * @param data      加密前key值
-     * @return          加密后key值
+     * @return 加密后key值
      * @throws Exception
      */
-    public static byte[] encryptHMAC(String algorithm, byte[] key, byte[] data) throws Exception {
+    public static String encryptHMAC(String algorithm, byte[] key, byte[] data) throws Exception {
         Mac mac = Mac.getInstance(algorithm);
         SecretKeySpec secret = new SecretKeySpec(key, mac.getAlgorithm());
         mac.init(secret);
 
-        return mac.doFinal(data);
+        return encryptBASE64(mac.doFinal(data));
     }
-
 
 
     //十六进制下数字到字符的映射数组

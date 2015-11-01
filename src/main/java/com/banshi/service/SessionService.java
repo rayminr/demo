@@ -1,148 +1,263 @@
 package com.banshi.service;
 
+import com.banshi.controller.vo.UserVO;
+import com.banshi.frame.cache.CacheProxy;
+import com.banshi.frame.exception.AppException;
+import com.banshi.frame.web.CookieWrapper;
 import com.banshi.model.dao.SessionDao;
 import com.banshi.model.dto.SessionDTO;
-import com.banshi.frame.cache.CacheProxy;
-import com.banshi.utils.Constants;
-import com.banshi.utils.Logger;
-import com.banshi.utils.MyString;
-import com.banshi.frame.web.CookieWrapper;
-import com.banshi.controller.vo.UserVO;
+import com.banshi.utils.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 @Service
 public class SessionService {
+
+    public static final String SESSION_MAC_SALT = "SESSION_MAC_SALT";
+    public static final String SESSION_EXPIRE_INTERVAL_MS = "SESSION_EXPIRE_INTERVAL_MS";
+    public static final String SESSION_MAX_EXPIRE_INTERVAL_MS = "SESSION_MAX_EXPIRE_INTERVAL_MS";
+    public static final String SESSION_STORE_TYPE = "SESSION_STORE_TYPE";
+    public static final String SESSION_STORE_TYPE_DB = "DB";
+    public static final String SESSION_STORE_TYPE_CACHE = "CACHE";
+    public static final String SESSION_STORE_TYPE_MIX = "MIX";
+
+    public static final String SESSION_KEY_SPLIT = ",";
+
 
     @Resource
     private SessionDao sessionDao;
 
 
     /**
-     * 登录后产生session级别的令牌
+     * 登录后产生session级别的令牌，并按照session存储方式保存session信息
      *
      * @param sessionDTO
-     * @return
+     * @return 返回ticketId，格式:UUID + 分割符"," + 创建时间 + 分割符"," +用HMAC加密UUID去除连接符"-"
      */
-    private String createSessionTicket(SessionDTO sessionDTO) {
+    public String createSessionTicket(SessionDTO sessionDTO) {
 
-        //产生ticket
-        String ticketId = (MyString.getUUID() + Long.toString(sessionDTO.getUserId(), 24)).toUpperCase();
-        //根据ticket缓存登录用户信息到Cache
-        CacheProxy.put(CacheProxy.CACHE_LOGIN_USER, ticketId, sessionDTO);
+        // 格式：UUID + 分割符"," + 创建时间 + 分割符"," +用HMAC加密UUID去除连接符"-"
+        String ticketId = null;
+        try {
+
+            Long createTime = System.currentTimeMillis();
+
+            StringBuilder sbTicket = new StringBuilder();
+            String UUID = MyString.getUUID();
+            String UUIDWithoutHyphen = UUID.replaceAll("-", "");
+            sbTicket.append(UUID).append(SESSION_KEY_SPLIT).append(createTime).append(SESSION_KEY_SPLIT);
+
+            // salt一部分在代码中，另一半在配置中管理
+            String saltKey = CipherUtil.MAC_SALT + AppProperties.getKVStr(SESSION_MAC_SALT);
+            String encryptUUIDWithoutHyphen = CipherUtil.encryptHMAC(CipherUtil.MAC_SHA, saltKey.getBytes(Constants.CHARSET_UTF_8), UUIDWithoutHyphen.getBytes(Constants.CHARSET_UTF_8));
+            sbTicket.append(encryptUUIDWithoutHyphen);
+            ticketId = sbTicket.toString();
+            Logger.debug(this, String.format("ticketId = %s", ticketId));
+
+            sessionDTO.setTicketId(ticketId);
+            sessionDTO.setTicketCreateTime(createTime);
+            sessionDTO.setTicketAccessTime(createTime);
+            Logger.debug(this, String.format("sessionDTO = %s", sessionDTO.toJson()));
+
+            String sessionStoreType = AppProperties.getKVStr(SESSION_STORE_TYPE);
+            if (SESSION_STORE_TYPE_DB.equals(sessionStoreType)) {
+                //session只保存到DB
+                sessionDao.insert(sessionDTO);
+
+            } else if (SESSION_STORE_TYPE_CACHE.equals(sessionStoreType)) {
+                //session只保存到CACHE
+                CacheProxy.put(CacheProxy.CACHE_LOGIN_USER, ticketId, sessionDTO);
+
+            } else if (SESSION_STORE_TYPE_MIX.equals(sessionStoreType)) {
+                //session保存到DB和CACHE
+                sessionDao.insert(sessionDTO);
+                CacheProxy.put(CacheProxy.CACHE_LOGIN_USER, ticketId, sessionDTO);
+
+            } else {
+
+                throw new AppException();
+            }
+
+        } catch (Exception e) {
+            Logger.error("createSessionTicket","createSessionTicket fail",e);
+            throw new AppException();
+        }
+
         return ticketId;
     }
 
     /**
-     * 校验登录令牌
+     * <p>
+     * 校验session ticket有效
+     * 1、校验ticket格式:UUID + 分割符"," + 创建时间 + 分割符"," +用HMAC加密UUID去除连接符"-"
+     * 2、校验ticket有效期:距离上次session访问时间间隔<={SESSION_EXPIRE_TIME}，及距离session创建时间间隔<={SESSION_MAX_EXPIRE_TIME}
+     * </p>
+     *
+     * @param ticketId
+     * @return 正确且有效:true
+     */
+    public boolean validateSessionTicket(String ticketId) {
+
+        return checkSessionTicket(ticketId) != null;
+    }
+
+    /**
+     * <p>
+     * 校验session ticket有效
+     * 1、校验ticket格式:UUID + 分割符"," + 创建时间 + 分割符"," +用HMAC加密UUID去除连接符"-"
+     * 2、校验ticket有效期:距离上次session访问时间间隔<={SESSION_EXPIRE_TIME}，及距离session创建时间间隔<={SESSION_MAX_EXPIRE_TIME}
+     * 3、校验通过后更新访问时间
+     * </p>
      *
      * @param ticketId
      * @return
      */
-    private SessionDTO validateSessionTicket(String ticketId) {
+    public boolean keepSessionTicket(String ticketId) {
 
-        Object cacheObj = CacheProxy.get(CacheProxy.CACHE_LOGIN_USER, ticketId);
-        if (cacheObj != null && cacheObj instanceof SessionDTO) {
-            SessionDTO sessionDTO = (SessionDTO) cacheObj;
+        boolean keepSuccess = false;
+        try {
+            SessionDTO sessionDTO = checkSessionTicket(ticketId);
+            Logger.debug(this, String.format("sessionDTO = %s", sessionDTO.toJson()));
+
             if (sessionDTO != null) {
-                return sessionDTO;
+                String sessionStoreType = AppProperties.getKVStr(SESSION_STORE_TYPE);
+                Long maxExpireTime = Long.parseLong(AppProperties.getKVStr(SESSION_MAX_EXPIRE_INTERVAL_MS));
+
+                Logger.debug(this, String.format("sessionStoreType = %s", sessionStoreType));
+
+                // 更新访问时间
+                sessionDTO.setTicketAccessTime(System.currentTimeMillis());
+                if (SESSION_STORE_TYPE_DB.equals(sessionStoreType)) {
+                    //session只更新DB，maxExpireTime为判断分区使用
+                    keepSuccess = sessionDao.updateByTicketId(sessionDTO, maxExpireTime) == 1 ? true : false;
+
+                } else if (SESSION_STORE_TYPE_CACHE.equals(sessionStoreType)) {
+                    //session只从CACHE获取
+                    keepSuccess = CacheProxy.put(CacheProxy.CACHE_LOGIN_USER, ticketId, sessionDTO);
+
+                } else if (SESSION_STORE_TYPE_MIX.equals(sessionStoreType)) {
+                    //session先从CACHE获取，再从DB获取
+                    int updateCnt = sessionDao.updateByTicketId(sessionDTO, maxExpireTime);
+                    Logger.debug(this, String.format("updateCnt = %s", updateCnt));
+                    if (updateCnt > 0) {
+                        keepSuccess = CacheProxy.put(CacheProxy.CACHE_LOGIN_USER, ticketId, sessionDTO);
+                    }
+                }
+                Logger.debug(this, String.format("keepSuccess = %s", keepSuccess));
             }
-        }
-        return null;
-    }
 
-    /**
-     * 判断用户是否登录：session中用户不存在或者ticketId对应的cache用户不存在或者两者用户信息不一致返回false
-     *
-     * @param request
-     * @param response
-     * @return
-     */
-    public boolean isLogin(HttpServletRequest request, HttpServletResponse response) {
-        SessionDTO sessionDTO = (SessionDTO) request.getSession().getAttribute(Constants.SESSION_USER);
-        if (sessionDTO == null) {
-            return false;
+        } catch (Exception ex) {
+            Logger.error("keepSessionTicket","keepSessionTicket fail",ex);
+            throw new AppException();
         }
-        Logger.debug(this, String.format("sessionDTO.userId = %s", sessionDTO.getUserId()));
 
-        CookieWrapper cookieWrapper = new CookieWrapper(request, response);
-        String ticketId = cookieWrapper.getCookieValue(Constants.COOKIE_KEY_UT);
-        SessionDTO cacheSessionDTO = validateSessionTicket(ticketId);
-        if (cacheSessionDTO == null) {
-            return false;
-        }
-        Logger.debug(this, String.format("sessionDTO.UserId = %s, cacheSessionDTO.UserId= %s", sessionDTO.getUserId(), cacheSessionDTO.getUserId()));
-        if (sessionDTO.getUserId() != cacheSessionDTO.getUserId()) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * 退出时清空session,cookie,cache中用户相关信息
-     *
-     * @param request
-     * @param response
-     */
-    public void logout(HttpServletRequest request, HttpServletResponse response) {
-
-        request.getSession().removeAttribute(Constants.SESSION_USER);
-        CookieWrapper cookieWrapper = new CookieWrapper(request, response);
-        String ticketId = cookieWrapper.getCookieValue(Constants.COOKIE_KEY_UT);
-        if (MyString.isNotBlank(ticketId)) {
-            CacheProxy.remove(CacheProxy.CACHE_LOGIN_USER, ticketId);
-            cookieWrapper.clearCookie(ticketId, Constants.COOKIE_DOMAIN_ROOT);
-        }
-    }
-
-    /**
-     * 保存登录用户session信息及产生cookie信息
-     *
-     * @param request
-     * @param response
-     * @param userVo
-     * @return
-     */
-    private boolean createSessionAndCookie(HttpServletRequest request, HttpServletResponse response,
-                                           UserVO userVo) {
-        boolean ret = false;
-        try {
-            request.getSession().setAttribute(Constants.SESSION_USER, userVo);
-            String ticketId = "";//createSessionTicket(userVo);
-            createCookie(request, response, userVo, ticketId, Constants.COOKIE_DOMAIN_ROOT);
-            ret = true;
-        } catch (Exception e) {
-            Logger.error(this, String.format("createSessionAndCookie failed, error=%s", e.getMessage()), e);
-        }
-        return ret;
+        return keepSuccess;
     }
 
 
     /**
-     * 创建登录后cookie
+     * <p>
+     * 校验session ticket有效
+     * 1、校验ticket格式:UUID + 分割符"," + 创建时间 + 分割符"," +用HMAC加密UUID去除连接符"-"
+     * 2、校验ticket有效期:距离上次session更新时间间隔<={SESSION_EXPIRE_TIME}，及距离session创建时间间隔<={SESSION_MAX_EXPIRE_TIME}
+     * </p>
      *
-     * @param request
-     * @param response
-     * @param userVo
      * @param ticketId
-     * @param domain
+     * @return
      */
-    private void createCookie(HttpServletRequest request, HttpServletResponse response,
-                              UserVO userVo, String ticketId, String domain) {
+    private SessionDTO checkSessionTicket(String ticketId) {
+
+        Logger.debug(this, String.format("ticketId = %s", ticketId));
+
+        SessionDTO retSessionDTO = null;
 
         try {
-            CookieWrapper cookieWrapper = new CookieWrapper(request, response);
-            //登录后产生的令牌，后面用于登录检验
-            cookieWrapper.setCookie(Constants.COOKIE_KEY_UT, ticketId, domain, Constants.COOKIE_TIME_UT);
-            //用户显示名，用来在页面上显示用 (对于中文名称可能需要进行转码)
-            cookieWrapper.setCookie(Constants.COOKIE_KEY_UN, userVo.getNameDisp(), domain, Constants.COOKIE_TIME_UN);
+            //校验ticketId格式
+            if (MyString.isNotBlank(ticketId)) {
+                String ticketArray[] = ticketId.split(SESSION_KEY_SPLIT);
+                if (ticketArray.length == 3) {
+                    String UUID = ticketArray[0];
+                    Logger.debug(this, String.format("UUID = %s", UUID));
 
-        } catch (Exception e) {
-            Logger.error(this, String.format("createCookie failed, error=%s", e.getMessage()), e);
+                    // ticket中第一部分为UUID格式
+                    if (!MyString.isUUID(UUID)) {
+                        return null;
+                    }
+
+                    // ticket中第二部分为session产生时间，判断是否已过最大期有效时间
+                    String createTimeStr = ticketArray[1];
+                    if (MyString.isBlank(createTimeStr) || !MyString.isNumeric(createTimeStr)) {
+                        return null;
+                    }
+
+                    Date currentTime = new Date(System.currentTimeMillis());
+                    long expireInterval = Long.parseLong(AppProperties.getKVStr(SESSION_EXPIRE_INTERVAL_MS));
+                    long maxExpireInterval = Long.parseLong(AppProperties.getKVStr(SESSION_MAX_EXPIRE_INTERVAL_MS));
+                    Date maxExpireTime = new Date(Long.parseLong(createTimeStr) + maxExpireInterval);
+
+                    Logger.debug(this, String.format("createTimeStr = %s", createTimeStr));
+                    Logger.debug(this, String.format("expireInterval = %s, expireInterval(mis) = %s", expireInterval, expireInterval/60/1000));
+                    Logger.debug(this, String.format("maxExpireInterval = %s, maxExpireInterval(hour) = %s", maxExpireInterval, maxExpireInterval/60/60/1000));
+                    Logger.debug(this, String.format("currentTime = %s", DateUtil.formatDate(currentTime, DateUtil.YYYY_MM_DD_HH_MI_SS)));
+                    Logger.debug(this, String.format("maxExpireTime = %s", DateUtil.formatDate(maxExpireTime, DateUtil.YYYY_MM_DD_HH_MI_SS)));
+
+                    if ( currentTime.after(maxExpireTime)) {
+                        return null;
+                    }
+
+                    String encryptStr = ticketArray[2];
+                    String UUIDWithoutHyphen = UUID.replaceAll("-", "");
+                    String saltKey = CipherUtil.MAC_SALT + AppProperties.getKVStr(SESSION_MAC_SALT);
+                    String encryptUUIDWithoutHyphen = CipherUtil.encryptHMAC(CipherUtil.MAC_SHA, saltKey.getBytes(Constants.CHARSET_UTF_8), UUIDWithoutHyphen.getBytes(Constants.CHARSET_UTF_8));
+
+                    // 验证机密串的正确性
+                    if (encryptStr != null && encryptStr.equals(encryptUUIDWithoutHyphen)) {
+                        String sessionStoreType = AppProperties.getKVStr(SESSION_STORE_TYPE);
+                        SessionDTO sessionDTO = null;
+                        if (SESSION_STORE_TYPE_DB.equals(sessionStoreType)) {
+                            //session只从DB获取，maxExpireTime为判断分区使用
+                            sessionDTO = sessionDao.getSessionByTicketId(ticketId, maxExpireInterval/60/60/1000);
+
+                        } else if (SESSION_STORE_TYPE_CACHE.equals(sessionStoreType)) {
+                            //session只从CACHE获取
+                            sessionDTO = (SessionDTO) CacheProxy.get(CacheProxy.CACHE_LOGIN_USER, ticketId);
+
+                        } else if (SESSION_STORE_TYPE_MIX.equals(sessionStoreType)) {
+                            //session先从CACHE获取，再从DB获取
+                            sessionDTO = (SessionDTO) CacheProxy.get(CacheProxy.CACHE_LOGIN_USER, ticketId);
+                            if (sessionDTO == null) {
+                                sessionDTO = sessionDao.getSessionByTicketId(ticketId, maxExpireInterval/60/60/1000);
+                            }
+                        }
+                        if (sessionDTO != null && sessionDTO.getTicketCreateTime() != null && sessionDTO.getTicketAccessTime() != null) {
+                            long tktCreateTime = sessionDTO.getTicketCreateTime();
+                            long tktAccessTime = sessionDTO.getTicketAccessTime();
+                            Date expireTime = new Date(tktAccessTime+ expireInterval);
+                            maxExpireTime = new Date(tktCreateTime + maxExpireInterval);
+
+                            Logger.debug(this, String.format("tktCreateTime = %s", tktCreateTime));
+                            Logger.debug(this, String.format("tktAccessTime = %s", tktAccessTime));
+                            Logger.debug(this, String.format("expireTime = %s", DateUtil.formatDate(expireTime, DateUtil.YYYY_MM_DD_HH_MI_SS)));
+                            Logger.debug(this, String.format("maxExpireTime = %s", DateUtil.formatDate(maxExpireTime, DateUtil.YYYY_MM_DD_HH_MI_SS)));
+
+                            // 判断是否已有效
+                            if (currentTime.before(expireTime) && currentTime.before(maxExpireTime)) {
+                                return sessionDTO;
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            Logger.error("checkSessionTicket","checkSessionTicket fail",ex);
+            throw new AppException();
         }
+
+        return retSessionDTO;
     }
 
 }

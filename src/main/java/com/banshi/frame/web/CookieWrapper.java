@@ -18,8 +18,9 @@ public class CookieWrapper {
 
     /**
      * 获取某个cookie值
-     *@param name
-     *@return
+     *
+     * @param name
+     * @return
      */
     public String getCookieValue(String name) {
 
@@ -28,7 +29,7 @@ public class CookieWrapper {
             return null;
         }
 
-        for (Cookie cookie: cookies) {
+        for (Cookie cookie : cookies) {
             if (cookie.getName().equalsIgnoreCase(name)) {
                 return cookie.getValue();
             }
@@ -39,10 +40,10 @@ public class CookieWrapper {
     /**
      * 设置cookie值
      *
-     *@param name
-     *@param value
-     *@param domain
-     *@param expireSeconds
+     * @param name
+     * @param value
+     * @param domain
+     * @param expireSeconds
      */
     public void setCookie(String name, String value, String domain, int expireSeconds) {
         Cookie cookie = new Cookie(name, value);
@@ -57,9 +58,9 @@ public class CookieWrapper {
     /**
      * 设置cookie值
      *
-     *@param name
-     *@param value
-     *@param domain
+     * @param name
+     * @param value
+     * @param domain
      */
     public void setCookie(String name, String value, String domain) {
         setCookie(name, value, domain, -1);
@@ -68,8 +69,8 @@ public class CookieWrapper {
     /**
      * 清除某个cookie值
      *
-     *@param name
-     *@param domain
+     * @param name
+     * @param domain
      */
     public void clearCookie(String name, String domain) {
         setCookie(name, "", domain, 0);
@@ -80,10 +81,11 @@ public class CookieWrapper {
      */
     public void clearAllCookie() {
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie: cookies) {
+        for (Cookie cookie : cookies) {
             cookie.setValue(null);
         }
     }
+
     /**
      * 获取某个cookie域
      *
@@ -92,11 +94,11 @@ public class CookieWrapper {
      */
     public String getCookieDomain(String name) {
         Cookie[] cookies = request.getCookies();
-        if (cookies == null){
+        if (cookies == null) {
             return null;
         }
 
-        for (Cookie cookie: cookies) {
+        for (Cookie cookie : cookies) {
             if (cookie.getName().equalsIgnoreCase(name)) {
                 return cookie.getDomain();
             }
@@ -107,16 +109,17 @@ public class CookieWrapper {
 
     /**
      * 获取某个cookie
-     *@param name
-     *@return
+     *
+     * @param name
+     * @return
      */
     public Cookie getCookie(String name) {
         Cookie[] cookies = request.getCookies();
-        if (cookies == null){
+        if (cookies == null) {
             return null;
         }
 
-        for (Cookie cookie: cookies) {
+        for (Cookie cookie : cookies) {
             if (cookie.getName().equalsIgnoreCase(name)) {
                 return cookie;
             }

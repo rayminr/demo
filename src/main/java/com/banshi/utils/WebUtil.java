@@ -62,7 +62,7 @@ public class WebUtil {
             while (addresses.hasMoreElements()) {
                 ip = (InetAddress) addresses.nextElement();
                 if (ip != null && ip instanceof Inet4Address) {
-                    Logger.debug(WebUtil.class, String.format("本机的IP = %s",ip.getHostAddress()));
+                    Logger.debug(WebUtil.class, String.format("本机的IP = %s", ip.getHostAddress()));
                 }
             }
         }

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig namespace="session">
+    <typeAlias alias="sessionDTO" type="com.banshi.model.dto.SessionDTO" />
+
+    <resultMap id="sessionMap" class="sessionDTO">
+        <result property="id" column="ID" />
+        <result property="userId" column="USER_ID" />
+        <result property="userName" column="USER_NAME" />
+        <result property="userType" column="USER_TYPE" />
+        <result property="userLevel" column="USER_LEVEL" />
+        <result property="loginAccount" column="LOGIN_ACCOUNT" />
+        <result property="loginAgent" column="LOGIN_AGENT" />
+        <result property="loginIp" column="LOGIN_IP" />
+        <result property="ticketId" column="TICKET_ID" />
+        <result property="ticketCreateTime" column="TICKET_CREATE_TIME" />
+        <result property="ticketAccessTime" column="TICKET_ACCESS_TIME" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="updatedBy" column="UPDATED_BY" />
+    </resultMap>
+
+    <!-- 根据sessionDTO插入T_SESSION -->
+    <insert id="insert" parameterType="sessionDTO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO T_SESSION
+        (
+        ID,
+        USER_ID,
+        USER_NAME,
+        USER_TYPE,
+        USER_LEVEL,
+        LOGIN_ACCOUNT,
+        LOGIN_AGENT,
+        LOGIN_IP,
+        TICKET_ID,
+        TICKET_CREATE_TIME,
+        TICKET_ACCESS_TIME,
+        CREATED_BY,
+        UPDATED_BY
+        )
+        VALUES
+        (
+        #id#,
+        #userId#,
+        #userName#,
+        #userType#,
+        #userLevel#,
+        #loginAccount#,
+        #loginAgent#,
+        #loginIp#,
+        #ticketId#,
+        #ticketCreateTime#,
+        #ticketAccessTime#,
+        'SYS',
+        'SYS'
+        )
+    </insert>
+
+    <!-- 根据ticketId更新T_SESSION.TICKET_ACCESS_TIME -->
+    <update id="updateSessionByTicketId" parameterClass="Map">
+        UPDATE T_SESSION
+        SET TICKET_ACCESS_TIME = #ticketAccessTime#,
+        UPDATED_BY = 'SYS'
+        WHERE TICKET_ID=#ticketId#
+    </update>
+
+    <!-- 根据ticketId获取T_SESSION -->
+    <select id="getSessionByTicketId" parameterClass="Map" resultMap="sessionMap">
+        SELECT
+            ID id,
+            USER_ID,
+            USER_NAME,
+            USER_TYPE,
+            USER_LEVEL,
+            LOGIN_ACCOUNT,
+            LOGIN_AGENT,
+            LOGIN_IP,
+            TICKET_ID,
+            TICKET_CREATE_TIME,
+            TICKET_ACCESS_TIME,
+            CREATED_AT,
+            CREATED_BY,
+            UPDATED_BY,
+            UPDATED_AT
+        FROM T_SESSION
+        WHERE TICKET_ID=#ticketId#
+    </select>
+
+</sqlMapConfig>
+

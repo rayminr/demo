@@ -1,9 +1,12 @@
 package com.banshi.service;
 
+import com.banshi.controller.vo.UserVO;
 import com.banshi.model.dao.UserDao;
 import com.banshi.model.dto.UserDTO;
-import com.banshi.utils.*;
-import com.banshi.controller.vo.UserVO;
+import com.banshi.utils.CipherUtil;
+import com.banshi.utils.Constants;
+import com.banshi.utils.MapUtil;
+import com.banshi.utils.MyString;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
@@ -70,15 +73,15 @@ public class UserService {
         userDto.setCreatedAt(new Date());
         userDto.setCreatedBy("app");
 
-        try{
+        try {
             userDao.insert(userDto);
-        } catch (DuplicateKeyException e){
+        } catch (DuplicateKeyException e) {
             e.printStackTrace();
             UserVO userVo = new UserVO();
             userVo.setRetCode(UserVO.RET_CODE_LOGIC_ERROR);
             userVo.setRetErrorMap(MapUtil.buildMap("logic", "唯一约束字段重复"));
             return userVo;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             UserVO userVo = new UserVO();
             userVo.setRetCode(UserVO.RET_CODE_SYS_ERROR);
@@ -94,7 +97,6 @@ public class UserService {
 
         return userVo;
     }
-
 
 
     /**

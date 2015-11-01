@@ -3,12 +3,12 @@
     <title>title</title>
     <script type="text/javascript" src="/mytime/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function(){
-            $("#lnk").click(function(){
+        $(document).ready(function () {
+            $("#lnk").click(function () {
                 $.post("/banshi/user/showUser.ajax", { id: "1"},
-                        function(data){
+                        function (data) {
                             alert("Data Loaded: " + data.retCode);
-                        },"json");
+                        }, "json");
             });
         });
     </script>

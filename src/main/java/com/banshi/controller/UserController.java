@@ -1,9 +1,9 @@
 package com.banshi.controller;
 
+import com.banshi.controller.vo.UserVO;
 import com.banshi.model.dto.UserDTO;
 import com.banshi.service.UserService;
 import com.banshi.utils.WebUtil;
-import com.banshi.controller.vo.UserVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,6 +20,7 @@ public class UserController {
 
     /**
      * 跳转到用户注册页面
+     *
      * @return
      * @throws Exception
      */
@@ -30,6 +31,7 @@ public class UserController {
 
     /**
      * 用户注册
+     *
      * @param userDto
      * @param request
      * @return
@@ -40,7 +42,7 @@ public class UserController {
         userDto.setUserIp(WebUtil.getRemoteIp(request));
         UserVO userVo = userService.addUser(userDto);
 
-        if(!UserVO.RET_CODE_SUCCESS.equals(userVo.getRetCode())){
+        if (!UserVO.RET_CODE_SUCCESS.equals(userVo.getRetCode())) {
             //登录失败
             return new ModelAndView("user/addUser", "user", userVo);
         } else {
@@ -51,6 +53,7 @@ public class UserController {
 
     /**
      * 显示用户信息
+     *
      * @param id
      * @return
      * @throws Exception
@@ -63,6 +66,7 @@ public class UserController {
 
     /**
      * 显示用户信息（异步接口）
+     *
      * @param id
      * @return
      * @throws Exception

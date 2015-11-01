@@ -7,10 +7,14 @@ import org.junit.Test;
 public class MyStringTest {
 
     @Test
-    public void getUUID(){
+    public void getUUID() {
         String uuid = MyString.getUUID();
-        Assert.assertEquals(32, uuid.length());
+        System.out.println("uuid = " + uuid);
+        Assert.assertEquals(36, uuid.length());
+        Assert.assertTrue(MyString.isUUID(uuid));
+        System.out.println("uuid = " + System.currentTimeMillis());
     }
+
     @Test
     public void isMatch() {
 

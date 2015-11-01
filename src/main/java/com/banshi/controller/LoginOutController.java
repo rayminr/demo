@@ -1,7 +1,7 @@
 package com.banshi.controller;
 
-import com.banshi.service.LoginOutService;
 import com.banshi.controller.vo.UserVO;
+import com.banshi.service.LoginService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,10 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginOutController {
 
     @Resource
-    private LoginOutService loginOutService;
+    private LoginService loginService;
 
     /**
      * 跳转到登录页面
+     *
      * @return
      * @throws Exception
      */
@@ -30,6 +31,7 @@ public class LoginOutController {
 
     /**
      * 登录
+     *
      * @param account
      * @param pwd
      * @param validateCode
@@ -45,8 +47,8 @@ public class LoginOutController {
                               HttpServletRequest request,
                               HttpServletResponse response) throws Exception {
 
-        UserVO userVo = loginOutService.login(account, pwd, validateCode, request, response);
-        if(!UserVO.RET_CODE_SUCCESS.equals(userVo.getRetCode())){
+        UserVO userVo = loginService.login(account, pwd, validateCode, request, response);
+        if (!UserVO.RET_CODE_SUCCESS.equals(userVo.getRetCode())) {
             return new ModelAndView("user/login", "user", userVo);
         } else {
             return new ModelAndView("user/loginSuccess", "user", userVo);
@@ -55,6 +57,7 @@ public class LoginOutController {
 
     /**
      * 退出登录
+     *
      * @param request
      * @param response
      * @return
@@ -62,9 +65,9 @@ public class LoginOutController {
      */
     @RequestMapping(value = "/logout.do", method = RequestMethod.GET)
     public ModelAndView logout(HttpServletRequest request,
-                       HttpServletResponse response) throws Exception {
+                               HttpServletResponse response) throws Exception {
 
-        loginOutService.logout(request, response);
+        loginService.logout(request, response);
         return new ModelAndView("user/login");
     }
 

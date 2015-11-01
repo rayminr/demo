@@ -1,6 +1,8 @@
 package com.banshi.service;
 
+import com.banshi.controller.vo.UserVO;
 import com.banshi.frame.cache.CacheProxy;
+import com.banshi.frame.web.CookieWrapper;
 import com.banshi.model.dao.LoginLogDao;
 import com.banshi.model.dao.UserDao;
 import com.banshi.model.dto.LoginLogDTO;
@@ -8,8 +10,6 @@ import com.banshi.model.dto.UserDTO;
 import com.banshi.model.enums.LoginType;
 import com.banshi.model.enums.UserEnum;
 import com.banshi.utils.*;
-import com.banshi.frame.web.CookieWrapper;
-import com.banshi.controller.vo.UserVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 @Service
-public class LoginOutService {
+public class LoginService {
 
     @Resource
     private UserDao userDao;
@@ -116,7 +116,7 @@ public class LoginOutService {
 
         UserVO userVo = new UserVO(userDto);
         boolean isCreated = createSessionAndCookie(request, response, userVo);
-        if(isCreated){
+        if (isCreated) {
             userVo.setRetCode(UserVO.RET_CODE_SUCCESS);
             userVo.setRetMsg("登录成功");
         } else {
@@ -130,13 +130,14 @@ public class LoginOutService {
 
     /**
      * 判断用户是否登录：session中用户不存在或者ticketId对应的cache用户不存在或者两者用户信息不一致返回false
+     *
      * @param request
      * @param response
      * @return
      */
-    public boolean isLogin(HttpServletRequest request, HttpServletResponse response){
-        UserVO sessionUserVo = (UserVO)request.getSession().getAttribute(Constants.SESSION_USER);
-        if(sessionUserVo == null){
+    public boolean isLogin(HttpServletRequest request, HttpServletResponse response) {
+        UserVO sessionUserVo = (UserVO) request.getSession().getAttribute(Constants.SESSION_USER);
+        if (sessionUserVo == null) {
             return false;
         }
         Logger.debug(this, String.format("sessionUserVo.id = %s", sessionUserVo.getId()));
@@ -144,11 +145,11 @@ public class LoginOutService {
         CookieWrapper cookieWrapper = new CookieWrapper(request, response);
         String ticketId = cookieWrapper.getCookieValue(Constants.COOKIE_KEY_UT);
         UserVO cacheUserVo = validateTicket(ticketId);
-        if(cacheUserVo == null){
+        if (cacheUserVo == null) {
             return false;
         }
         Logger.debug(this, String.format("sessionUserVo.id = %s, cacheUserVo.id = %s", sessionUserVo.getId(), cacheUserVo.getId()));
-        if(cacheUserVo.getId() != sessionUserVo.getId()){
+        if (cacheUserVo.getId() != sessionUserVo.getId()) {
             return false;
         }
         return true;
@@ -160,12 +161,12 @@ public class LoginOutService {
      * @param request
      * @param response
      */
-    public void logout(HttpServletRequest request, HttpServletResponse response){
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
 
         request.getSession().removeAttribute(Constants.SESSION_USER);
         CookieWrapper cookieWrapper = new CookieWrapper(request, response);
         String ticketId = cookieWrapper.getCookieValue(Constants.COOKIE_KEY_UT);
-        if(MyString.isNotBlank(ticketId)){
+        if (MyString.isNotBlank(ticketId)) {
             CacheProxy.remove(CacheProxy.CACHE_LOGIN_USER, ticketId);
             cookieWrapper.clearCookie(ticketId, Constants.COOKIE_DOMAIN_ROOT);
         }
@@ -180,15 +181,15 @@ public class LoginOutService {
      * @return
      */
     private boolean createSessionAndCookie(HttpServletRequest request, HttpServletResponse response,
-                                            UserVO userVo) {
+                                           UserVO userVo) {
         boolean ret = false;
-        try{
+        try {
             request.getSession().setAttribute(Constants.SESSION_USER, userVo);
             String ticketId = createTicket(userVo);
             createCookie(request, response, userVo, ticketId, Constants.COOKIE_DOMAIN_ROOT);
             ret = true;
-        } catch (Exception e){
-            Logger.error(this, String.format("createSessionAndCookie failed, error=%s",e.getMessage()),e);
+        } catch (Exception e) {
+            Logger.error(this, String.format("createSessionAndCookie failed, error=%s", e.getMessage()), e);
         }
         return ret;
     }
@@ -204,7 +205,7 @@ public class LoginOutService {
         //产生ticket
         String ticketId = (MyString.getUUID() + Long.toString(userVo.getId(), 24)).toUpperCase();
         //根据ticket缓存登录用户信息到Cache
-        CacheProxy.put(CacheProxy.CACHE_LOGIN_USER, ticketId,userVo);
+        CacheProxy.put(CacheProxy.CACHE_LOGIN_USER, ticketId, userVo);
         return ticketId;
     }
 
@@ -217,9 +218,9 @@ public class LoginOutService {
     private UserVO validateTicket(String ticketId) {
 
         Object cacheObj = CacheProxy.get(CacheProxy.CACHE_LOGIN_USER, ticketId);
-        if(cacheObj instanceof UserVO){
-            UserVO userVO = (UserVO)cacheObj;
-            if (userVO != null){
+        if (cacheObj instanceof UserVO) {
+            UserVO userVO = (UserVO) cacheObj;
+            if (userVO != null) {
                 return userVO;
             }
         }
@@ -236,7 +237,7 @@ public class LoginOutService {
      * @param domain
      */
     private void createCookie(HttpServletRequest request, HttpServletResponse response,
-                            UserVO userVo, String ticketId, String domain) {
+                              UserVO userVo, String ticketId, String domain) {
 
         try {
             CookieWrapper cookieWrapper = new CookieWrapper(request, response);
@@ -246,8 +247,10 @@ public class LoginOutService {
             cookieWrapper.setCookie(Constants.COOKIE_KEY_UN, userVo.getNameDisp(), domain, Constants.COOKIE_TIME_UN);
 
         } catch (Exception e) {
-            Logger.error(this,String.format("createCookie failed, error=%s",e.getMessage()),e);
+            Logger.error(this, String.format("createCookie failed, error=%s", e.getMessage()), e);
         }
     }
+
+
 
 }
