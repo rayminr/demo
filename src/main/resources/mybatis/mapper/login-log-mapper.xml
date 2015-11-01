@@ -19,7 +19,7 @@
             #{loginType},
             #{loginAccount},
             #{loginPwd},
-            #{loginTime},
+            DEFAULT,
             #{loginIp},
             #{loginAgent}
         )

@@ -57,7 +57,7 @@ ext {
     velocity_version = "1.7"
     velocity_tools_version = "2.0"
     spring_version = "3.2.0.RELEASE"
-    ibatis_version="2.3.4.726"
+    ibatis_version = "2.3.4.726"
     mybatis_version = "3.2.7"
     mybatis_spring_version = "1.2.2"
     lucene_version = "4.9.0"
@@ -99,7 +99,8 @@ dependencies {
             "org.springframework:spring-context:$spring_version",
             "org.springframework:spring-context-support:$spring_version"]
 
-    def orm_lib = ["org.apache.ibatis:ibatis-sqlmap:$ibatis_version",
+    def orm_lib = ["org.mybatis:mybatis:$mybatis_version",
+            "org.mybatis:mybatis-spring:$mybatis_spring_version",
             "commons-dbcp:commons-dbcp:$dbcp_version",
             "mysql:mysql-connector-java:$mysql_version"]
 

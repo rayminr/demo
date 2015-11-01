@@ -1,17 +1,13 @@
 package com.banshi.service;
 
-import com.banshi.controller.vo.UserVO;
 import com.banshi.frame.cache.CacheProxy;
 import com.banshi.frame.exception.AppException;
-import com.banshi.frame.web.CookieWrapper;
 import com.banshi.model.dao.SessionDao;
 import com.banshi.model.dto.SessionDTO;
 import com.banshi.utils.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 @Service
@@ -26,7 +22,6 @@ public class SessionService {
     public static final String SESSION_STORE_TYPE_MIX = "MIX";
 
     public static final String SESSION_KEY_SPLIT = ",";
-
 
     @Resource
     private SessionDao sessionDao;
@@ -83,7 +78,7 @@ public class SessionService {
             }
 
         } catch (Exception e) {
-            Logger.error("createSessionTicket","createSessionTicket fail",e);
+            Logger.error(this, "createSessionTicket fail", e);
             throw new AppException();
         }
 
@@ -151,7 +146,7 @@ public class SessionService {
             }
 
         } catch (Exception ex) {
-            Logger.error("keepSessionTicket","keepSessionTicket fail",ex);
+            Logger.error(this, "keepSessionTicket fail", ex);
             throw new AppException();
         }
 
@@ -200,12 +195,12 @@ public class SessionService {
                     Date maxExpireTime = new Date(Long.parseLong(createTimeStr) + maxExpireInterval);
 
                     Logger.debug(this, String.format("createTimeStr = %s", createTimeStr));
-                    Logger.debug(this, String.format("expireInterval = %s, expireInterval(mis) = %s", expireInterval, expireInterval/60/1000));
-                    Logger.debug(this, String.format("maxExpireInterval = %s, maxExpireInterval(hour) = %s", maxExpireInterval, maxExpireInterval/60/60/1000));
+                    Logger.debug(this, String.format("expireInterval = %s, expireInterval(mis) = %s", expireInterval, expireInterval / 60 / 1000));
+                    Logger.debug(this, String.format("maxExpireInterval = %s, maxExpireInterval(hour) = %s", maxExpireInterval, maxExpireInterval / 60 / 60 / 1000));
                     Logger.debug(this, String.format("currentTime = %s", DateUtil.formatDate(currentTime, DateUtil.YYYY_MM_DD_HH_MI_SS)));
                     Logger.debug(this, String.format("maxExpireTime = %s", DateUtil.formatDate(maxExpireTime, DateUtil.YYYY_MM_DD_HH_MI_SS)));
 
-                    if ( currentTime.after(maxExpireTime)) {
+                    if (currentTime.after(maxExpireTime)) {
                         return null;
                     }
 
@@ -220,7 +215,7 @@ public class SessionService {
                         SessionDTO sessionDTO = null;
                         if (SESSION_STORE_TYPE_DB.equals(sessionStoreType)) {
                             //session只从DB获取，maxExpireTime为判断分区使用
-                            sessionDTO = sessionDao.getSessionByTicketId(ticketId, maxExpireInterval/60/60/1000);
+                            sessionDTO = sessionDao.getSessionByTicketId(ticketId, maxExpireInterval / 60 / 60 / 1000);
 
                         } else if (SESSION_STORE_TYPE_CACHE.equals(sessionStoreType)) {
                             //session只从CACHE获取
@@ -230,13 +225,13 @@ public class SessionService {
                             //session先从CACHE获取，再从DB获取
                             sessionDTO = (SessionDTO) CacheProxy.get(CacheProxy.CACHE_LOGIN_USER, ticketId);
                             if (sessionDTO == null) {
-                                sessionDTO = sessionDao.getSessionByTicketId(ticketId, maxExpireInterval/60/60/1000);
+                                sessionDTO = sessionDao.getSessionByTicketId(ticketId, maxExpireInterval / 60 / 60 / 1000);
                             }
                         }
                         if (sessionDTO != null && sessionDTO.getTicketCreateTime() != null && sessionDTO.getTicketAccessTime() != null) {
                             long tktCreateTime = sessionDTO.getTicketCreateTime();
                             long tktAccessTime = sessionDTO.getTicketAccessTime();
-                            Date expireTime = new Date(tktAccessTime+ expireInterval);
+                            Date expireTime = new Date(tktAccessTime + expireInterval);
                             maxExpireTime = new Date(tktCreateTime + maxExpireInterval);
 
                             Logger.debug(this, String.format("tktCreateTime = %s", tktCreateTime));
@@ -253,7 +248,7 @@ public class SessionService {
                 }
             }
         } catch (Exception ex) {
-            Logger.error("checkSessionTicket","checkSessionTicket fail",ex);
+            Logger.error(this, "checkSessionTicket fail", ex);
             throw new AppException();
         }
 

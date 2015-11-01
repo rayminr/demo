@@ -9,6 +9,7 @@
         <result property="nickName" column="NICK_NAME"/>
         <result property="mobile" column="MOBILE"/>
         <result property="email" column="EMAIL"/>
+        <result property="emailDisp" column="EMAIL_DISP"/>
         <result property="pwd" column="PWD"/>
         <result property="type" column="TYPE"/>
         <result property="src" column="SRC"/>
@@ -28,9 +29,11 @@
         INSERT INTO T_USER
         (
             NAME,
+            NAME_DISP,
             NICK_NAME,
             MOBILE,
             EMAIL,
+            EMAIL_DISP,
             PWD,
             TYPE,
             SRC,
@@ -48,9 +51,11 @@
         VALUES
         (
             #{name},
+            #{nameDisp},
             #{nickName},
             #{mobile},
             #{email},
+            #{emailDisp},
             #{pwd},
             #{type},
             #{src},

@@ -2,6 +2,7 @@ package com.banshi.frame.interceptor;
 
 
 import com.banshi.controller.vo.AjaxResult;
+import com.banshi.service.LoginService;
 import com.banshi.service.SessionService;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,7 +18,7 @@ import java.io.PrintWriter;
 public class AjaxMustLoginInterceptor implements HandlerInterceptor {
 
     @Resource
-    private SessionService sessionService;
+    private LoginService loginService;
 
     /**
      * 在业务处理器处理请求之前被调用
@@ -29,13 +30,13 @@ public class AjaxMustLoginInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        /*if (!sessionService.isLogin(request, response)) {
+        if (!loginService.isLogin(request, response)) {
             PrintWriter out = response.getWriter();
             AjaxResult result = new AjaxResult(AjaxResult.RET_CODE_CHECK_ERROR, "need to login");
             out.print(result.toJson());
             out.close();
             return false;
-        }*/
+        }
         return true;
     }
 

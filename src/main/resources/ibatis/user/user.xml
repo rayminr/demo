@@ -1,1227 +1,1231 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
 
 <sqlMapConfig namespace="user">
-    <typeAlias alias="user" type="com.yihaodian.front.user.common.model.EndUser" />
+    <typeAlias alias="user" type="com.yihaodian.front.user.common.model.EndUser"/>
 
     <!-- 数据库中end_user_info表实际的字段属性映射 -->
     <resultMap id="endUserInfoDBResultMap" class="endUserInfo">
-        <result property="endUserInfoId" column="end_User_Info_Id" />   
-        <result property="endUserId" column="end_User_Id" />
-        <result property="marriage" column="marriage" />
-        <result property="familyMembers" column="family_Members" />
-        <result property="childrenAge" column="children_Age" />
-        <result property="incomeDesc" column="income_Desc" />
-        <result property="car" column="car" />
-        <result property="companyName" column="company_Name" />
-        <result property="industry" column="industry" />
-        <result property="position" column="position" />
-        <result property="workSeniority" column="work_Seniority" />
-        <result property="degree" column="degree" />
-        <result property="schoolTag" column="school_Tag" />
+        <result property="endUserInfoId" column="end_User_Info_Id"/>
+        <result property="endUserId" column="end_User_Id"/>
+        <result property="marriage" column="marriage"/>
+        <result property="familyMembers" column="family_Members"/>
+        <result property="childrenAge" column="children_Age"/>
+        <result property="incomeDesc" column="income_Desc"/>
+        <result property="car" column="car"/>
+        <result property="companyName" column="company_Name"/>
+        <result property="industry" column="industry"/>
+        <result property="position" column="position"/>
+        <result property="workSeniority" column="work_Seniority"/>
+        <result property="degree" column="degree"/>
+        <result property="schoolTag" column="school_Tag"/>
         <result property="schoolTagdate" column="school_Tagdate" jdbcType="java.util.Date"/>
-        <result property="shoppingHabit" column="shopping_Habit" />
-        <result property="buyType" column="buy_Type" />
-        <result property="favoriteBrand" column="favorite_Brand" />
-        <result property="favoriteStar" column="favorite_Star" />
-        <result property="favoriteMovie" column="favorite_Movie" />
-        <result property="favoritePersonage" column="favorite_Personage" />
+        <result property="shoppingHabit" column="shopping_Habit"/>
+        <result property="buyType" column="buy_Type"/>
+        <result property="favoriteBrand" column="favorite_Brand"/>
+        <result property="favoriteStar" column="favorite_Star"/>
+        <result property="favoriteMovie" column="favorite_Movie"/>
+        <result property="favoritePersonage" column="favorite_Personage"/>
         <result property="modifyDate" column="modify_Date" jdbcType="java.util.Date"/>
-        <result property="habitationStatus" column="habitation_Status" />
-        <result property="userDegree" column="user_Degree" />
+        <result property="habitationStatus" column="habitation_Status"/>
+        <result property="userDegree" column="user_Degree"/>
         <result property="endUserPicAuditDate" column="end_User_Pic_Audit_Date" jdbcType="java.util.Date"/>
-        <result property="auditOperatorName" column="audit_Operator_Name" />        
-        <result property="endUserPicAuditName" column="end_User_Pic_Audit_Name" />
+        <result property="auditOperatorName" column="audit_Operator_Name"/>
+        <result property="endUserPicAuditName" column="end_User_Pic_Audit_Name"/>
         <result property="endUserPicDate" column="end_User_Pic_Date" jdbcType="java.util.Date"/>
-        <result property="endUserPrePic" column="end_User_Pre_Pic" />
-        <result property="endUserPicState" column="end_User_Pic_State" />
-        <result property="version" column="end_user_info_version" />
+        <result property="endUserPrePic" column="end_User_Pre_Pic"/>
+        <result property="endUserPicState" column="end_User_Pic_State"/>
+        <result property="version" column="end_user_info_version"/>
     </resultMap>
-      
+
     <!-- end_user_info表逻辑上的字段属性映射 -->
     <resultMap id="endUserInfoLogicResultMap" class="endUserInfo" extends="endUserInfoDBResultMap">
         <result property="endUserBirthday" column="end_User_Birthday" jdbcType="java.util.Date"/>
-        <result property="endUserDirectoryNum" column="end_User_Directory_Num" />
-        <result property="endUserReferrer" column="end_User_Referrer" />
-        <result property="endUserAddressId" column="end_User_Address_Id" />
-        <result property="endUserIm" column="end_User_Im" />
-        <result property="endUserImType" column="end_User_Im_Type" />
-        <result property="endUserUrl" column="end_User_Url" />
-        <result property="needEMagine" column="need_E_Magine" />
-        <result property="endUserDegree" column="end_User_Degree" />
-        <result property="endUserHabitationstatus" column="end_User_Habitationstatus" />
-        <result property="endUserLiveId" column="end_User_Live_Id" />
-        <result property="endUserBelow18" column="end_User_Below_18" />
-        <result property="endUserCareerId" column="end_User_Career_Id" />
-        <result property="endUserShoppingHabit" column="end_User_Shopping_Habit" />
-        <result property="needSms" column="need_Sms" />
-        <result property="endUserLittleChildBod" column="end_User_Little_Child_Bod" />
-        <result property="endUserValidRefererNum" column="end_User_Valid_Referer_Num" />
-        <result property="endUserTotalRefererNum" column="end_User_Total_Referer_Num" />
-        <result property="endUserGoldNum" column="end_User_Gold_Num" />
-        <result property="endUserMaxim" column="end_User_Maxim" />
-        <result property="endUserMembershipRenewDate" column="end_User_Membership_Renew_Date" jdbcType="java.util.Date"/>
-        <result property="addressIsHidden" column="address_Is_Hidden" />
-        <result property="sexIsHidden" column="sex_Is_Hidden" />
-        <result property="degreeIsHidden" column="degree_Is_Hidden" />
-        <result property="birthdayIsHidden" column="birthday_Is_Hidden" />
-        <result property="urlIsHidden" column="url_Is_Hidden" />
-        <result property="maximIsHidden" column="maxim_Is_Hidden" />
-        <result property="src" column="src" />
-        <result property="endUserShoppingReason" column="end_User_Shopping_Reason" />
-        <result property="registerFrom" column="register_From" />
-        <result property="isYihaodianClerk" column="is_Yihaodian_Clerk" />
-        <result property="isActivate" column="is_Activate" />
-        <result property="privacy" column="privacy" />
-        <result property="externalUserLevel" column="external_User_Level" />
-        <result property="userActionPrivacy" column="user_Action_Privacy" />
-        <result property="endUserRemark" column="end_User_Remark" />
-        <result property="isCorporationUser" column="is_Corporation_User" /> 
+        <result property="endUserDirectoryNum" column="end_User_Directory_Num"/>
+        <result property="endUserReferrer" column="end_User_Referrer"/>
+        <result property="endUserAddressId" column="end_User_Address_Id"/>
+        <result property="endUserIm" column="end_User_Im"/>
+        <result property="endUserImType" column="end_User_Im_Type"/>
+        <result property="endUserUrl" column="end_User_Url"/>
+        <result property="needEMagine" column="need_E_Magine"/>
+        <result property="endUserDegree" column="end_User_Degree"/>
+        <result property="endUserHabitationstatus" column="end_User_Habitationstatus"/>
+        <result property="endUserLiveId" column="end_User_Live_Id"/>
+        <result property="endUserBelow18" column="end_User_Below_18"/>
+        <result property="endUserCareerId" column="end_User_Career_Id"/>
+        <result property="endUserShoppingHabit" column="end_User_Shopping_Habit"/>
+        <result property="needSms" column="need_Sms"/>
+        <result property="endUserLittleChildBod" column="end_User_Little_Child_Bod"/>
+        <result property="endUserValidRefererNum" column="end_User_Valid_Referer_Num"/>
+        <result property="endUserTotalRefererNum" column="end_User_Total_Referer_Num"/>
+        <result property="endUserGoldNum" column="end_User_Gold_Num"/>
+        <result property="endUserMaxim" column="end_User_Maxim"/>
+        <result property="endUserMembershipRenewDate" column="end_User_Membership_Renew_Date"
+                jdbcType="java.util.Date"/>
+        <result property="addressIsHidden" column="address_Is_Hidden"/>
+        <result property="sexIsHidden" column="sex_Is_Hidden"/>
+        <result property="degreeIsHidden" column="degree_Is_Hidden"/>
+        <result property="birthdayIsHidden" column="birthday_Is_Hidden"/>
+        <result property="urlIsHidden" column="url_Is_Hidden"/>
+        <result property="maximIsHidden" column="maxim_Is_Hidden"/>
+        <result property="src" column="src"/>
+        <result property="endUserShoppingReason" column="end_User_Shopping_Reason"/>
+        <result property="registerFrom" column="register_From"/>
+        <result property="isYihaodianClerk" column="is_Yihaodian_Clerk"/>
+        <result property="isActivate" column="is_Activate"/>
+        <result property="privacy" column="privacy"/>
+        <result property="externalUserLevel" column="external_User_Level"/>
+        <result property="userActionPrivacy" column="user_Action_Privacy"/>
+        <result property="endUserRemark" column="end_User_Remark"/>
+        <result property="isCorporationUser" column="is_Corporation_User"/>
     </resultMap>
-            
+
     <!-- end_user表逻辑上的字段属性映射 -->
     <resultMap id="endUserLogicResultMap" class="endUser">
-        <result property="id" column="id" />
-        <result property="endUserName" column="end_user_name" />
-        <result property="endUserPassword" column="end_user_password" />
-        <result property="endUserRealName" column="end_user_real_name" />
-        <result property="mobile" column="mobile" />
-        <result property="phone" column="phone" />
-        <result property="endUserEmail" column="end_user_email" />
-        <result property="endUserPostCode" column="end_user_post_code" />
-        <result property="endUserCredit" column="end_user_credit" />
+        <result property="id" column="id"/>
+        <result property="endUserName" column="end_user_name"/>
+        <result property="endUserPassword" column="end_user_password"/>
+        <result property="endUserRealName" column="end_user_real_name"/>
+        <result property="mobile" column="mobile"/>
+        <result property="phone" column="phone"/>
+        <result property="endUserEmail" column="end_user_email"/>
+        <result property="endUserPostCode" column="end_user_post_code"/>
+        <result property="endUserCredit" column="end_user_credit"/>
         <result property="endUserLastLoginDate" column="end_user_last_login_date" jdbcType="java.util.Date"/>
         <result property="endUserLastBoughtDate" column="end_user_last_bought_date" jdbcType="java.util.Date"/>
-        <result property="endUserLoginTimes" column="end_user_login_times" />
-        <result property="endUserSex" column="end_user_sex" />
+        <result property="endUserLoginTimes" column="end_user_login_times"/>
+        <result property="endUserSex" column="end_user_sex"/>
         <result property="endUserCreateTime" column="end_user_create_time" jdbcType="java.util.Date"/>
-        <result property="ip" column="ip" />
-        <result property="coCode" column="co_code" />
-        <result property="pinganEmpFlag" column="pingan_emp_flag" />
-        <result property="endUserRealRealName" column="end_user_real_real_name" />
-        <result property="isEmailActivate" column="is_email_activate" />
-        <result property="idCard" column="id_card" />
-        <result property="mcSiteId" column="mc_site_id" />
+        <result property="ip" column="ip"/>
+        <result property="coCode" column="co_code"/>
+        <result property="pinganEmpFlag" column="pingan_emp_flag"/>
+        <result property="endUserRealRealName" column="end_user_real_real_name"/>
+        <result property="isEmailActivate" column="is_email_activate"/>
+        <result property="idCard" column="id_card"/>
+        <result property="mcSiteId" column="mc_site_id"/>
         <result property="updateTime" column="update_time" jdbcType="java.util.Date"/>
-        <result property="validMobilePhoneNum" column="valid_mobile_phone_num" />
-        <result property="noticeInIndex" column="notice_in_index" />
-        <result property="endUserBoughtTimes" column="end_user_bought_times" />
-        <result property="siteType" column="site_type" />
-        <result property="isAgreeNewContract" column="is_agree_new_contract" />
-        <result property="isAgreeAuth" column="is_agree_auth" />
-        
-        <result property="backOperatorId" column="back_Operator_Id" />
-        <result property="isAnalysed" column="is_Analysed" />
-        <result property="endUserType" column="end_User_Type" />
-        <result property="vipCardId" column="vip_Card_Id" />
+        <result property="validMobilePhoneNum" column="valid_mobile_phone_num"/>
+        <result property="noticeInIndex" column="notice_in_index"/>
+        <result property="endUserBoughtTimes" column="end_user_bought_times"/>
+        <result property="siteType" column="site_type"/>
+        <result property="isAgreeNewContract" column="is_agree_new_contract"/>
+        <result property="isAgreeAuth" column="is_agree_auth"/>
+
+        <result property="backOperatorId" column="back_Operator_Id"/>
+        <result property="isAnalysed" column="is_Analysed"/>
+        <result property="endUserType" column="end_User_Type"/>
+        <result property="vipCardId" column="vip_Card_Id"/>
         <result property="refuseConfirm" column="refuse_Confirm" jdbcType="java.util.Date"/>
-        <result property="endUserBoughtAmount" column="end_User_Bought_Amount" />
-        <result property="pointFileYear" column="point_File_Year" />
-        <result property="endUserPic" column="end_User_Pic" />
-        <result property="rebateNum" column="rebate_Num" />
-        <result property="version" column="version" />
+        <result property="endUserBoughtAmount" column="end_User_Bought_Amount"/>
+        <result property="pointFileYear" column="point_File_Year"/>
+        <result property="endUserPic" column="end_User_Pic"/>
+        <result property="rebateNum" column="rebate_Num"/>
+        <result property="version" column="version"/>
     </resultMap>
 
     <!-- endUser对象集映射（包含endUserInfo信息） -->
     <resultMap id="endUserWithUserInfoResultMap" class="endUser" extends="endUserLogicResultMap">
-        <result property="endUserInfo" resultMap="FRONT_USER_SERVICE_ENDUSER.endUserInfoLogicResultMap"/>        
+        <result property="endUserInfo" resultMap="FRONT_USER_SERVICE_ENDUSER.endUserInfoLogicResultMap"/>
     </resultMap>
-    
+
     <!-- end_user表逻辑上的字段属性映射（部分常用字段） -->
     <resultMap id="simpleEndUserDBResultMap" class="endUser">
-        <result property="id" column="id" />
-        <result property="endUserName" column="end_user_name" />
-        <result property="endUserEmail" column="end_user_email" />
-        <result property="endUserPassword" column="end_user_password" />
-        <result property="validMobilePhoneNum" column="valid_mobile_phone_num" />
-        <result property="endUserCredit" column="end_user_credit" />
-        <result property="endUserBoughtAmount" column="end_user_bought_amount" />
-        <result property="endUserBoughtTimes" column="end_user_bought_times" />
-        <result property="mcSiteId" column="mc_site_id" />
-        <result property="version" column="version" />
+        <result property="id" column="id"/>
+        <result property="endUserName" column="end_user_name"/>
+        <result property="endUserEmail" column="end_user_email"/>
+        <result property="endUserPassword" column="end_user_password"/>
+        <result property="validMobilePhoneNum" column="valid_mobile_phone_num"/>
+        <result property="endUserCredit" column="end_user_credit"/>
+        <result property="endUserBoughtAmount" column="end_user_bought_amount"/>
+        <result property="endUserBoughtTimes" column="end_user_bought_times"/>
+        <result property="mcSiteId" column="mc_site_id"/>
+        <result property="version" column="version"/>
     </resultMap>
-    
+
     <!-- 简单end_user_info表字段属性映射 -->
     <resultMap id="simpleEndUserInfoDBResultMap" class="endUserInfo">
-        <result property="endUserId" column="end_user_id" />      
-        <result property="version" column="version" />   
+        <result property="endUserId" column="end_user_id"/>
+        <result property="version" column="version"/>
     </resultMap>
-    
+
 
     <!-- end_user表逻辑上所有的select字段-->
-	<sql id="endUserLogicSelectAllSql">
-       u.id,
-       u.end_user_name,
-       u.end_user_password,
-       u.end_user_real_name,
-       u.mobile,
-       u.phone,
-       u.end_user_email,
-       u.end_user_post_code,
-       u.end_user_credit,
-       u.end_user_last_login_date,
-       u.end_user_last_bought_date,
-       u.end_user_login_times,
-       u.end_user_sex,
-       u.end_user_create_time,
-       u.ip,
-       u.co_code,
-       u.pingan_emp_flag,
-       u.end_user_real_real_name,
-       u.is_email_activate,
-       u.id_card,
-       u.mc_site_id,
-       u.update_time,
-       u.valid_mobile_phone_num,
-       u.notice_in_index,
-       u.end_user_bought_times,
-       u.site_type,
-       u.is_agree_new_contract,	
-       u.is_agree_auth,
-       u.back_Operator_Id,
-       u.is_Analysed,
-       u.end_User_Type,
-       u.vip_Card_Id,
-       u.refuse_Confirm,
-       u.end_User_Bought_Amount,
-       u.point_File_Year,
-       u.end_User_Pic,
-       u.rebate_Num,
-       u.version
-	</sql>
-	
-	<!-- 数据库中end_user_info表实际所有的select字段 -->
-	<sql id="endUserInfoDBSelectAllSql">
-       ui.id as end_User_Info_Id,
-       ui.end_User_Id,
-       ui.marriage,
-       ui.family_Members,
-       ui.children_Age,
-       ui.income_Desc,
-       ui.car,
-       ui.company_Name,
-       ui.industry,
-       ui.position,
-       ui.work_Seniority,
-       ui.degree,
-       ui.school_Tag,
-       ui.school_Tagdate,
-       ui.shopping_Habit,
-       ui.buy_Type,
-       ui.favorite_Brand,
-       ui.favorite_Star,
-       ui.favorite_Movie,
-       ui.favorite_Personage,
-       ui.modify_Date,
-       ui.habitation_Status,
-       ui.user_Degree,
-       ui.end_User_Pic_Audit_Date,
-       ui.audit_Operator_name,
-       ui.end_User_Pic_Audit_Name,
-       ui.end_User_Pic_Date,
-       ui.end_User_Pre_Pic,
-       ui.end_User_Pic_State,
-       ui.version as end_user_info_version
-	</sql>
-	
-	<!-- end_user表中待迁移至end_user_info表的所有字段-->
-	<sql id="endUserInfoLogicSelectAllInEndUserSql">
-       u.end_User_Birthday,
-       u.end_User_Directory_Num,
-       u.end_User_Referrer,
-       u.end_User_Address_Id,
-       u.end_User_Im,
-       u.end_User_Im_Type,
-       u.end_User_Url,
-       u.need_E_Magine,
-       u.end_User_Degree,
-       u.end_User_Habitationstatus,
-       u.end_User_Live_Id,
-       u.end_User_Below_18,
-       u.end_User_Career_Id,
-       u.end_User_Shopping_Habit,
-       u.need_Sms,
-       u.end_User_Little_Child_Bod,
-       u.end_User_Valid_Referer_Num,
-       u.end_User_Total_Referer_Num,
-       u.end_User_Gold_Num,
-       u.end_User_Maxim,
-       u.end_User_Membership_Renew_Date,
-       u.address_Is_Hidden,
-       u.sex_Is_Hidden,
-       u.degree_Is_Hidden,
-       u.birthday_Is_Hidden,
-       u.url_Is_Hidden,
-       u.maxim_Is_Hidden,
-       u.src,
-       u.end_User_Shopping_Reason,
-       u.register_From,
-       u.is_Yihaodian_Clerk,
-       u.is_Activate,
-       u.privacy,
-       u.external_User_Level,
-       u.user_Action_Privacy,
-       u.end_User_Remark,
-       u.is_Corporation_User
-	</sql>
-		
+    <sql id="endUserLogicSelectAllSql">
+        u.id,
+        u.end_user_name,
+        u.end_user_password,
+        u.end_user_real_name,
+        u.mobile,
+        u.phone,
+        u.end_user_email,
+        u.end_user_post_code,
+        u.end_user_credit,
+        u.end_user_last_login_date,
+        u.end_user_last_bought_date,
+        u.end_user_login_times,
+        u.end_user_sex,
+        u.end_user_create_time,
+        u.ip,
+        u.co_code,
+        u.pingan_emp_flag,
+        u.end_user_real_real_name,
+        u.is_email_activate,
+        u.id_card,
+        u.mc_site_id,
+        u.update_time,
+        u.valid_mobile_phone_num,
+        u.notice_in_index,
+        u.end_user_bought_times,
+        u.site_type,
+        u.is_agree_new_contract,
+        u.is_agree_auth,
+        u.back_Operator_Id,
+        u.is_Analysed,
+        u.end_User_Type,
+        u.vip_Card_Id,
+        u.refuse_Confirm,
+        u.end_User_Bought_Amount,
+        u.point_File_Year,
+        u.end_User_Pic,
+        u.rebate_Num,
+        u.version
+    </sql>
+
+    <!-- 数据库中end_user_info表实际所有的select字段 -->
+    <sql id="endUserInfoDBSelectAllSql">
+        ui.id as end_User_Info_Id,
+        ui.end_User_Id,
+        ui.marriage,
+        ui.family_Members,
+        ui.children_Age,
+        ui.income_Desc,
+        ui.car,
+        ui.company_Name,
+        ui.industry,
+        ui.position,
+        ui.work_Seniority,
+        ui.degree,
+        ui.school_Tag,
+        ui.school_Tagdate,
+        ui.shopping_Habit,
+        ui.buy_Type,
+        ui.favorite_Brand,
+        ui.favorite_Star,
+        ui.favorite_Movie,
+        ui.favorite_Personage,
+        ui.modify_Date,
+        ui.habitation_Status,
+        ui.user_Degree,
+        ui.end_User_Pic_Audit_Date,
+        ui.audit_Operator_name,
+        ui.end_User_Pic_Audit_Name,
+        ui.end_User_Pic_Date,
+        ui.end_User_Pre_Pic,
+        ui.end_User_Pic_State,
+        ui.version as end_user_info_version
+    </sql>
+
+    <!-- end_user表中待迁移至end_user_info表的所有字段-->
+    <sql id="endUserInfoLogicSelectAllInEndUserSql">
+        u.end_User_Birthday,
+        u.end_User_Directory_Num,
+        u.end_User_Referrer,
+        u.end_User_Address_Id,
+        u.end_User_Im,
+        u.end_User_Im_Type,
+        u.end_User_Url,
+        u.need_E_Magine,
+        u.end_User_Degree,
+        u.end_User_Habitationstatus,
+        u.end_User_Live_Id,
+        u.end_User_Below_18,
+        u.end_User_Career_Id,
+        u.end_User_Shopping_Habit,
+        u.need_Sms,
+        u.end_User_Little_Child_Bod,
+        u.end_User_Valid_Referer_Num,
+        u.end_User_Total_Referer_Num,
+        u.end_User_Gold_Num,
+        u.end_User_Maxim,
+        u.end_User_Membership_Renew_Date,
+        u.address_Is_Hidden,
+        u.sex_Is_Hidden,
+        u.degree_Is_Hidden,
+        u.birthday_Is_Hidden,
+        u.url_Is_Hidden,
+        u.maxim_Is_Hidden,
+        u.src,
+        u.end_User_Shopping_Reason,
+        u.register_From,
+        u.is_Yihaodian_Clerk,
+        u.is_Activate,
+        u.privacy,
+        u.external_User_Level,
+        u.user_Action_Privacy,
+        u.end_User_Remark,
+        u.is_Corporation_User
+    </sql>
+
     <!-- 根据ID查询单个用户 -->
-	<select id="getUserById" parameterClass="long" resultMap="endUserLogicResultMap">
-		select 
-		 <include refid="endUserLogicSelectAllSql"/>
-		  from end_user u
-		 where u.id=#endUserId#
-	</select>
+    <select id="getUserById" parameterClass="long" resultMap="endUserLogicResultMap">
+        select
+        <include refid="endUserLogicSelectAllSql"/>
+        from end_user u
+        where u.id=#endUserId#
+    </select>
 
-	<!-- 根据指定的用户ID数组批量查询用户 -->
-	<select id="getUsersByIds" parameterClass="list" resultMap="endUserLogicResultMap">
-		select 
-		 <include refid="endUserLogicSelectAllSql"/>
-		  from end_user u 
-		 where u.id in 
-		    <iterate open="(" close=")" conjunction=",">
-		       #endUserIdList[]#
-		    </iterate>
-	</select>
-	
-	<!-- 批量查询用户（根据用户名数组endUserNameList或用户邮箱数组endUserEmailList或用户绑定手机号数组validMobilePhoneNumList与用户mcSiteId） -->    
-	<select id="getUsersByNameOrEmailOrValidPhoneList" resultMap="endUserLogicResultMap">
-		select 
-		  <include refid="endUserLogicSelectAllSql"/> 
-		  from end_user u 
-		  where u.mc_site_id = #mcsiteid# and
-		<isNotEmpty property="endUserNameList">
-		    u.end_user_name in 
-		    <iterate open="(" close=")" property="endUserNameList" conjunction=",">
-		       #endUserNameList[]#
-		    </iterate>		
-	    </isNotEmpty>
-	    
-		<isNotEmpty property="endUserEmailList">
-		    u.end_user_email in 
-		    <iterate open="(" close=")" property="endUserEmailList" conjunction=",">
-		       #endUserEmailList[]#
-		    </iterate>
-	    </isNotEmpty>
-	    
-		<isNotEmpty property="validMobilePhoneNumList">
-		    u.valid_mobile_phone_num in 
-		    <iterate open="(" close=")" property="validMobilePhoneNumList" conjunction=",">
-		       #validMobilePhoneNumList[]#
-		    </iterate>		
-	    </isNotEmpty>
-	</select>
-		
-	<!-- 根据ID查询单个用户的用户信息 -->
-	<select id="getUserInfoById" parameterClass="long" resultMap="endUserInfoLogicResultMap">
-		select 
-		 <include refid="endUserInfoDBSelectAllSql"/>,
-		 <include refid="endUserInfoLogicSelectAllInEndUserSql"/>
-		  from end_user_info ui,end_user u 
-		 where u.id = ui.end_user_id and ui.end_user_id=#endUserId#
-		   and rownum = 1
-	</select>
-	
-	<!-- 根据ID查询单个用户以及对应的用户信息 -->
-	<select id="getUserWithUserInfoById" parameterClass="long" resultMap="endUserWithUserInfoResultMap">
-		select 
-		 <include refid="endUserLogicSelectAllSql"/>,
-		 <include refid="endUserInfoDBSelectAllSql"/>,
-		 <include refid="endUserInfoLogicSelectAllInEndUserSql"/>
-		  from end_user u left join end_user_info ui on u.id=ui.end_user_id
-		 where u.id=#endUserId#
-		 and rownum=1
-	</select>
-	
-	 <!-- 根据指定的用户ID数组批量查询用户信息 -->
-	<select id="getUserInfosByIds" parameterClass="list" resultMap="endUserInfoLogicResultMap">
-		select distinct
-		 <include refid="endUserInfoDBSelectAllSql"/>,
-		 <include refid="endUserInfoLogicSelectAllInEndUserSql"/>
-		  from end_user_info ui,end_user u
-		 where u.id = ui.end_user_id and ui.end_user_id in 
-		    <iterate open="(" close=")" conjunction=",">
-		       #endUserIdList[]#
-		    </iterate>
-	</select>
-		
-	<!-- 根据ID查询单个简单用户（只查询部分常用字段） -->
-	<select id="getSimpleUserById" parameterClass="long" resultMap="simpleEndUserDBResultMap">
-		select id,
-		       end_user_name,
-		       end_user_email,
-		       end_user_password,
-		       valid_mobile_phone_num,
-		       end_user_credit,
-		       end_user_bought_amount,
-		       end_user_bought_times,
-		       mc_site_id,
-		       version
-		  from end_user
-		 where id=#endUserId#
-	</select>
-	
-	<!-- 根据ID查询单个简单用户信息 -->
-	<select id="getSimpleUserInfoById" parameterClass="long" resultMap="simpleEndUserInfoDBResultMap">
-		select end_user_id,version from end_user_info
-		 where end_user_id=#endUserId# and rownum=1
-	</select>
-	
-	<!-- 添加新用户 -->
-	<insert id="addUser" parameterClass="endUser">
-	   <selectKey resultClass="long" keyProperty="id">
-			SELECT SEQ_END_USER_ID.NEXTVAL AS ID FROM DUAL
-       </selectKey>
-      insert into end_user
-        (id,
-         end_user_name,
-         mc_site_id
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserPassword">
-         ,end_User_Password
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserRealName">
-         ,end_User_Real_Name
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.mobile">
-         ,mobile
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.phone">
-         ,phone
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserEmail">
-         ,end_User_Email
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserPostCode">
-         ,end_User_Post_Code
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserSex">
-         ,end_User_Sex
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.ip">
-         ,ip
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.coCode">
-         ,co_Code
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.pinganEmpFlag">
-         ,pingan_Emp_Flag
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserRealRealName">
-         ,end_User_Real_Real_Name
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.isEmailActivate">
-         ,is_Email_Activate
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.idCard">
-         ,id_Card
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.validMobilePhoneNum">
-         ,valid_Mobile_Phone_Num
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserBoughtTimes">
-         ,end_User_Bought_Times
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.noticeInIndex">
-         ,notice_In_Index
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.siteType">
-         ,site_Type
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.isAgreeNewContract">
-         ,is_Agree_New_Contract
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.isAgreeAuth">
-         ,is_Agree_Auth
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.backOperatorId">
-         ,back_Operator_Id
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.isAnalysed">
-         ,is_Analysed
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserType">
-         ,end_User_Type
-         </isPropertyAvailable>
-         <isNotEmpty property="vipCardId">
-         ,vip_Card_Id
-         </isNotEmpty>
-         <isPropertyAvailable property="innerUpdateFlagMap.refuseConfirm">
-         ,refuse_Confirm
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserBoughtAmount">
-         ,end_User_Bought_Amount
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.pointFileYear">
-         ,point_File_Year
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserPic">
-         ,end_User_Pic
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.rebateNum">
-         ,rebate_Num
-         </isPropertyAvailable>
-         )
-      values
-        (#id#,
-         #endUserName#,
-         #mcSiteId#
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserPassword">
-         ,#endUserPassword#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserRealName">
-         ,#endUserRealName#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.mobile">
-         ,#mobile#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.phone">
-         ,#phone#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserEmail">
-         ,#endUserEmail#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserPostCode">
-         ,#endUserPostCode#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserSex">
-         ,#endUserSex#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.ip">
-         ,#ip#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.coCode">
-         ,#coCode#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.pinganEmpFlag">
-         ,#pinganEmpFlag#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserRealRealName">
-         ,#endUserRealRealName#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.isEmailActivate">
-         ,#isEmailActivate#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.idCard">
-         ,#idCard#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.validMobilePhoneNum">
-         ,#validMobilePhoneNum#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserBoughtTimes">
-         ,#endUserBoughtTimes#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.noticeInIndex">
-         ,#noticeInIndex#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.siteType">
-         ,#siteType#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.isAgreeNewContract">
-         ,#isAgreeNewContract#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.isAgreeAuth">
-         ,#isAgreeAuth#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.backOperatorId">
-         ,#backOperatorId#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.isAnalysed">
-         ,#isAnalysed#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserType">
-         ,#endUserType#
-         </isPropertyAvailable>
-         <isNotEmpty property="vipCardId">
-         ,#vipCardId#
-         </isNotEmpty>
-         <isPropertyAvailable property="innerUpdateFlagMap.refuseConfirm">
-         ,#refuseConfirm#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserBoughtAmount">
-         ,#endUserBoughtAmount#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.pointFileYear">
-         ,#pointFileYear#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.endUserPic">
-         ,#endUserPic#
-         </isPropertyAvailable>
-         <isPropertyAvailable property="innerUpdateFlagMap.rebateNum">
-         ,#rebateNum#
-         </isPropertyAvailable>
-         )	   
-	</insert>
-	
-	<!-- 添加新用户信息 -->
-	<insert id="addUserInfo" parameterClass="endUserInfo">
-	   <selectKey resultClass="long" keyProperty="endUserInfoId">
-			SELECT SEQ_USER_PROFILE_INFO_ID.NEXTVAL AS ID FROM DUAL
-       </selectKey>
-       insert into end_user_info
-       (
-          id,
-          end_User_Id,
-          modify_Date
-          <isPropertyAvailable property="innerUpdateFlagMap.marriage">
-          ,marriage
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.familyMembers">
-          ,family_Members
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.childrenAge">
-          ,children_Age
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.incomeDesc">
-          ,income_Desc
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.car">
-          ,car
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.companyName">
-          ,company_Name
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.industry">
-          ,industry
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.position">
-          ,position
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.workSeniority">
-          ,work_Seniority
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.degree">
-          ,degree
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.schoolTag">
-          ,school_Tag
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.schoolTagdate">
-          ,school_Tagdate
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.shoppingHabit">
-          ,shopping_Habit
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.buyType">
-          ,buy_Type
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.favoriteBrand">
-          ,favorite_Brand
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.favoriteStar">
-          ,favorite_Star
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.favoriteMovie">
-          ,favorite_Movie
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.favoritePersonage">
-          ,favorite_Personage
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.habitationStatus">
-          ,habitation_Status
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.userDegree">
-          ,user_Degree
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserPicAuditDate">
-          ,end_User_Pic_Audit_Date
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserPicAuditName">
-          ,end_User_Pic_Audit_Name
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserPicDate">
-          ,end_User_Pic_Date
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserPrePic">
-          ,end_User_Pre_Pic
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserPicState">
-          ,end_User_Pic_State
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.auditOperatorName">
-          ,audit_Operator_Name
-          </isPropertyAvailable>
-       )
-       values
-       (
-          #endUserInfoId#,
-          #endUserId#,
-          sysdate
-          <isPropertyAvailable property="innerUpdateFlagMap.marriage">
-          ,#marriage#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.familyMembers">
-          ,#familyMembers#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.childrenAge">
-          ,#childrenAge#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.incomeDesc">
-          ,#incomeDesc#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.car">
-          ,#car#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.companyName">
-          ,#companyName#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.industry">
-          ,#industry#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.position">
-          ,#position#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.workSeniority">
-          ,#workSeniority#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.degree">
-          ,#degree#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.schoolTag">
-          ,#schoolTag#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.schoolTagdate">
-          ,#schoolTagdate#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.shoppingHabit">
-          ,#shoppingHabit#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.buyType">
-          ,#buyType#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.favoriteBrand">
-          ,#favoriteBrand#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.favoriteStar">
-          ,#favoriteStar#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.favoriteMovie">
-          ,#favoriteMovie#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.favoritePersonage">
-          ,#favoritePersonage#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.habitationStatus">
-          ,#habitationStatus#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.userDegree">
-          ,#userDegree#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserPicAuditDate">
-          ,#endUserPicAuditDate#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserPicAuditName">
-          ,#endUserPicAuditName#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserPicDate">
-          ,#endUserPicDate#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserPrePic">
-          ,#endUserPrePic#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserPicState">
-          ,#endUserPicState#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.auditOperatorName">
-          ,#auditOperatorName#
-          </isPropertyAvailable>
-       )
-	</insert>	
-	
-	<!-- 更新用户信息 -->
-	<update id="updateUserById">
-	   update end_user
-          set update_time = sysdate
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserRealName">
-	              ,end_User_Real_Name = #endUserRealName#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.mobile">
-	              ,mobile = #mobile#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.phone">
-	              ,phone = #phone#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserPostCode">
-	              ,end_User_Post_Code = #endUserPostCode#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserSex">
-	              ,end_User_Sex = #endUserSex#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.ip">
-	              ,ip = #ip#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.pinganEmpFlag">
-	              ,pingan_Emp_Flag = #pinganEmpFlag#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserRealRealName">
-	              ,end_User_Real_Real_Name = #endUserRealRealName#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.isEmailActivate">
-	              ,is_Email_Activate = #isEmailActivate#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.idCard">
-	              ,id_Card = #idCard#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserBoughtTimes">
-	              ,end_User_Bought_Times = #endUserBoughtTimes#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserLastBoughtDate">
-	              ,end_User_Last_Bought_Date = #endUserLastBoughtDate#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.noticeInIndex">
-	              ,notice_In_Index = #noticeInIndex#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.isAgreeNewContract">
-	              ,is_agree_new_contract = #isAgreeNewContract#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.isAgreeAuth">
-	              ,is_agree_auth = #isAgreeAuth#
-	      </isPropertyAvailable>
-	      <isPropertyAvailable property="innerUpdateFlagMap.backOperatorId">
-	              ,back_Operator_Id = #backOperatorId#
-	      </isPropertyAvailable>
-	      <isPropertyAvailable property="innerUpdateFlagMap.isAnalysed">
-	              ,is_Analysed = #isAnalysed#
-	      </isPropertyAvailable>
-	      <isPropertyAvailable property="innerUpdateFlagMap.endUserType">
-	              ,end_User_Type = #endUserType#
-	      </isPropertyAvailable>
-	      <isNotEmpty property="vipCardId">
-	              ,vip_Card_Id = #vipCardId#
-	      </isNotEmpty>
-	      <isPropertyAvailable property="innerUpdateFlagMap.refuseConfirm">
-	              ,refuse_Confirm = #refuseConfirm#
-	      </isPropertyAvailable>
-	      <isPropertyAvailable property="innerUpdateFlagMap.endUserBoughtAmount">
-	              ,end_User_Bought_Amount = #endUserBoughtAmount#
-	      </isPropertyAvailable>
-	      <isPropertyAvailable property="innerUpdateFlagMap.pointFileYear">
-	              ,point_File_Year = #pointFileYear#
-	      </isPropertyAvailable>
-	      <isPropertyAvailable property="innerUpdateFlagMap.endUserPic">
-	              ,end_User_Pic = #endUserPic#
-	      </isPropertyAvailable>
-	      <isPropertyAvailable property="innerUpdateFlagMap.rebateNum">
-	              ,rebate_Num = #rebateNum#
-	      </isPropertyAvailable>
-        where id = #id#
-	</update>
+    <!-- 根据指定的用户ID数组批量查询用户 -->
+    <select id="getUsersByIds" parameterClass="list" resultMap="endUserLogicResultMap">
+        select
+        <include refid="endUserLogicSelectAllSql"/>
+        from end_user u
+        where u.id in
+        <iterate open="(" close=")" conjunction=",">
+            #endUserIdList[]#
+        </iterate>
+    </select>
 
-	<!-- 带乐观锁更新用户单个字段的值 -->
-	<update id="updateUserSingleColumnWithLockById">
-	   update end_user
-          set update_time = sysdate,
-              $columnName$ = #columnValue#,
-              version = version +1
-        where id=#endUserId# and version = #version#       
-    </update>
-    
-    <!-- 不带乐观锁更新用户单个字段的值-->
-	<update id="updateUserSingleColumnWithoutLockById">
-	   update end_user
-          set update_time = sysdate,
-              $columnName$ = #columnValue#
-        where id=#endUserId#     
-    </update>	
-    
-	<!-- 更新end_user表中未迁移的字段 -->
-	<update id="updateUserInfoInUserById">
-	   update end_user
-          set update_time = sysdate
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserBirthday">
-	              ,end_User_Birthday = #endUserBirthday#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserDirectoryNum">    
-	              ,end_User_Directory_Num = #endUserDirectoryNum#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserReferrer">    
-	              ,end_User_Referrer = #endUserReferrer#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserAddressId">    
-	              ,end_User_Address_Id = #endUserAddressId#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserIm">    
-	              ,end_User_Im = #endUserIm#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserImType">    
-	              ,end_User_Im_Type = #endUserImType#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserUrl">    
-	              ,end_User_Url = #endUserUrl#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.needEMagine">    
-	              ,need_E_Magine = #needEMagine#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserDegree">    
-	              ,end_User_Degree = #endUserDegree#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserHabitationstatus">    
-	              ,end_User_Habitationstatus = #endUserHabitationstatus#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserLiveId">    
-	              ,end_User_Live_Id = #endUserLiveId#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserBelow18">    
-	              ,end_User_Below_18 = #endUserBelow18#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserCareerId">    
-	              ,end_User_Career_Id = #endUserCareerId#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserShoppingHabit">    
-	              ,end_User_Shopping_Habit = #endUserShoppingHabit#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.needSms">    
-	              ,need_Sms = #needSms#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserLittleChildBod">     
-	              ,end_User_Little_Child_Bod = #endUserLittleChildBod#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserValidRefererNum">    
-	              ,end_User_Valid_Referer_Num = #endUserValidRefererNum#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserTotalRefererNum">    
-	              ,end_User_Total_Referer_Num = #endUserTotalRefererNum#
-	      </isPropertyAvailable>
-          <isNotEmpty property="endUserGoldNum">    
-	              ,end_User_Gold_Num = #endUserGoldNum#
-	      </isNotEmpty>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserMaxim">    
-	              ,end_User_Maxim = #endUserMaxim#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserMembershipRenewDate">    
-	              ,end_User_Membership_Renew_Date = #endUserMembershipRenewDate#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.addressIsHidden">    
-	              ,address_Is_Hidden = #addressIsHidden#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.sexIsHidden">    
-	              ,sex_Is_Hidden = #sexIsHidden#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.degreeIsHidden">    
-	              ,degree_Is_Hidden = #degreeIsHidden#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.birthdayIsHidden">    
-	              ,birthday_Is_Hidden = #birthdayIsHidden#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.urlIsHidden">    
-	              ,url_Is_Hidden = #urlIsHidden#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.maximIsHidden">    
-	              ,maxim_Is_Hidden = #maximIsHidden#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.src">    
-	              ,src = #src#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserShoppingReason">    
-	              ,end_User_Shopping_Reason = #endUserShoppingReason#
-	      </isPropertyAvailable>
-          <isNotEmpty property="registerFrom">    
-	              ,register_From = #registerFrom#
-	      </isNotEmpty>
-          <isPropertyAvailable property="innerUpdateFlagMap.isYihaodianClerk">    
-	              ,is_Yihaodian_Clerk = #isYihaodianClerk#
-	      </isPropertyAvailable>
-          <isNotEmpty property="isActivate">    
-	              ,is_Activate = #isActivate#
-	      </isNotEmpty>
-          <isNotEmpty property="privacy">    
-	              ,privacy = #privacy#
-	      </isNotEmpty>
-          <isNotEmpty property="externalUserLevel">    
-	              ,external_User_Level = #externalUserLevel#
-	      </isNotEmpty>
-          <isNotEmpty property="userActionPrivacy">    
-	              ,user_Action_Privacy = #userActionPrivacy#
-	      </isNotEmpty>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserRemark">    
-	              ,end_User_Remark = #endUserRemark#
-	      </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.isCorporationUser">    
-	              ,is_Corporation_User = #isCorporationUser#
-	      </isPropertyAvailable>
-        where id = #endUserId#
-	</update>
+    <!-- 批量查询用户（根据用户名数组endUserNameList或用户邮箱数组endUserEmailList或用户绑定手机号数组validMobilePhoneNumList与用户mcSiteId） -->
+    <select id="getUsersByNameOrEmailOrValidPhoneList" resultMap="endUserLogicResultMap">
+        select
+        <include refid="endUserLogicSelectAllSql"/>
+        from end_user u
+        where u.mc_site_id = #mcsiteid# and
+        <isNotEmpty property="endUserNameList">
+            u.end_user_name in
+            <iterate open="(" close=")" property="endUserNameList" conjunction=",">
+                #endUserNameList[]#
+            </iterate>
+        </isNotEmpty>
 
-	<!-- 更新用户详情信息 -->
-	<update id="updateUserInfoById">
-	   update end_user_info
-          set modify_date = sysdate
-          <isPropertyAvailable property="innerUpdateFlagMap.marriage"> 
-	              ,marriage = #marriage#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.familyMembers"> 
-	              ,family_Members = #familyMembers#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.childrenAge"> 
-	              ,children_Age = #childrenAge#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.incomeDesc"> 
-	              ,income_Desc = #incomeDesc#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.car"> 
-	              ,car = #car#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.companyName"> 
-	              ,company_Name = #companyName#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.industry"> 
-	              ,industry = #industry#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.position"> 
-	              ,position = #position#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.workSeniority"> 
-	              ,work_Seniority = #workSeniority#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.degree"> 
-	              ,degree = #degree#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.schoolTag"> 
-	              ,school_Tag = #schoolTag#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.schoolTagdate"> 
-	              ,school_Tagdate = #schoolTagdate#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.shoppingHabit"> 
-	              ,shopping_Habit = #shoppingHabit#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.buyType"> 
-	              ,buy_Type = #buyType#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.favoriteBrand"> 
-	              ,favorite_Brand = #favoriteBrand#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.favoriteStar"> 
-	              ,favorite_Star = #favoriteStar#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.favoriteMovie"> 
-	              ,favorite_Movie = #favoriteMovie#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.favoritePersonage"> 
-	              ,favorite_Personage = #favoritePersonage#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.habitationStatus"> 
-	              ,habitation_Status = #habitationStatus#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.userDegree"> 
-	              ,user_Degree = #userDegree#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserPicAuditDate"> 
-	              ,end_User_Pic_Audit_Date = #endUserPicAuditDate#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserPicAuditName"> 
-	              ,end_User_Pic_Audit_Name = #endUserPicAuditName#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserPicDate"> 
-	              ,end_User_Pic_Date = #endUserPicDate#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserPrePic"> 
-	              ,end_User_Pre_Pic = #endUserPrePic#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.endUserPicState"> 
-	              ,end_User_Pic_State = #endUserPicState#
-          </isPropertyAvailable>
-          <isPropertyAvailable property="innerUpdateFlagMap.auditOperatorName"> 
-	              ,audit_Operator_Name = #auditOperatorName#
-          </isPropertyAvailable>
-          where end_user_id = #endUserId#
-	</update>
-	
-	<!-- 查询与指定用户名（END_USER_NAME）或用户邮箱（END_USER_EMAIL）或用户绑定手机号（VALID_MOBILE_PHONE_NUM）和MC_SITE_ID 都匹配的用户个数(常用于重复性检查)     -->
-	<select id="getUserCountByNameOrEmailOrValidPhone" resultClass="int">
-		select count(1) from end_user u
-		<dynamic prepend="where">
-			<isNotEmpty property="endUserId">
-				u.id &lt;&gt; #endUserId# and
-			</isNotEmpty>
-			
-			<isNotEmpty property="endUserName">
-				u.end_user_name = #endUserName#
-			</isNotEmpty>
-			<isNotEmpty property="endUserEmail">
-				(u.end_user_name = #endUserEmail# or
-				u.end_user_email = #endUserEmail#)
-	        </isNotEmpty>
-			<isNotEmpty property="validMobilePhoneNum">
-				(u.end_user_name =
-				to_char(#validMobilePhoneNum#) or u.valid_mobile_phone_num =
-				#validMobilePhoneNum#)
-	        </isNotEmpty>
-	        
-			<isNotEmpty property="mcsiteid">
-				and u.mc_site_id = #mcsiteid#
-			</isNotEmpty>
-		</dynamic>
-	</select>
-	
-	<!-- 查询与指定用户名（END_USER_NAME）或用户邮箱（END_USER_EMAIL）或用户绑定手机号（VALID_MOBILE_PHONE_NUM）和MC_SITE_ID 都匹配的第一个用户     -->
-	<select id="getUsersByNameOrEmailOrValidPhone" resultMap="endUserLogicResultMap">
-		select <include refid="endUserLogicSelectAllSql"/>
-	     from end_user u
-		<dynamic prepend="where">
-			<isNotEmpty property="endUserName">
-				u.end_user_name =
-				#endUserName#
-		    </isNotEmpty>
-			<isNotEmpty property="endUserEmail">
-				(u.end_user_name =
-				#endUserEmail# or u.end_user_email = #endUserEmail#)
-			</isNotEmpty>
-			<isNotEmpty property="validMobilePhoneNum">
-				(u.end_user_name =
-				to_char(#validMobilePhoneNum#) or u.valid_mobile_phone_num =
-				#validMobilePhoneNum#)
-		    </isNotEmpty>
-		    <isNotEmpty property="mcsiteid">
-				and u.mc_site_id = #mcsiteid#
-		    </isNotEmpty>
-		</dynamic>
-	</select>
-	
-	<!-- 获得endUserId的状态码     -->
-	<select id="getStatusOfEndUserId" resultClass="int">
-       select decode(ui.end_user_id, null, u.version, -2) ret
-         from end_user u left join end_user_info ui on u.id = ui.end_user_id
-        where u.id = #endUserId# and rownum = 1
-	</select>	
-	
-	<!-- 根据用户ID获取用户信用值     -->
-	<select id="getUserCreditById" resultClass="int">
-       select nvl(end_user_credit,0) endUserCredit from end_user where id=#endUserId#
-	</select>
-	
-	<!-- 更新用户登录信息通过ID -->
-	<update id="updateUserAfterLoginById" parameterClass="HashMap">
-		update end_user
-		   set update_time              = sysdate,
-		       BEFORE_LAST_LOGIN_DATE = END_USER_LAST_LOGIN_DATE,
-		       END_USER_LAST_LOGIN_DATE = sysdate,
-		       ip                       = #ip#,
-		       END_USER_LOGIN_TIMES     = END_USER_LOGIN_TIMES + 1
-		 WHERE id = #userId# 
-	</update>	
-	
-	<!-- 更新用户登录信息通过ID -->
-	<update id="batchUpdateUserPicAudit" parameterClass="HashMap">
-		update end_user_info
-          set modify_date = sysdate,
-              end_user_pic_audit_date = sysdate,
-              end_user_pic_state = #endUserPicState#,
-		      audit_operator_name = #auditOperatorName#
-		 WHERE end_user_id in 
-		 <iterate property="endUserIdArr" open="(" close=")"  conjunction="," >
-		    #endUserIdArr[]#
-		 </iterate>
-	</update>
-	
-	<!-- 新增地址薄信息 -->
-	<insert id="addGoodReceiver" parameterClass="goodReceiver">
-	    <selectKey resultClass="long" keyProperty="id">
-			SELECT SEQ_GOOD_RECEIVER_ID.NEXTVAL AS id FROM DUAL
+        <isNotEmpty property="endUserEmailList">
+            u.end_user_email in
+            <iterate open="(" close=")" property="endUserEmailList" conjunction=",">
+                #endUserEmailList[]#
+            </iterate>
+        </isNotEmpty>
+
+        <isNotEmpty property="validMobilePhoneNumList">
+            u.valid_mobile_phone_num in
+            <iterate open="(" close=")" property="validMobilePhoneNumList" conjunction=",">
+                #validMobilePhoneNumList[]#
+            </iterate>
+        </isNotEmpty>
+    </select>
+
+    <!-- 根据ID查询单个用户的用户信息 -->
+    <select id="getUserInfoById" parameterClass="long" resultMap="endUserInfoLogicResultMap">
+        select
+        <include refid="endUserInfoDBSelectAllSql"/>,
+        <include refid="endUserInfoLogicSelectAllInEndUserSql"/>
+        from end_user_info ui,end_user u
+        where u.id = ui.end_user_id and ui.end_user_id=#endUserId#
+        and rownum = 1
+    </select>
+
+    <!-- 根据ID查询单个用户以及对应的用户信息 -->
+    <select id="getUserWithUserInfoById" parameterClass="long" resultMap="endUserWithUserInfoResultMap">
+        select
+        <include refid="endUserLogicSelectAllSql"/>,
+        <include refid="endUserInfoDBSelectAllSql"/>,
+        <include refid="endUserInfoLogicSelectAllInEndUserSql"/>
+        from end_user u left join end_user_info ui on u.id=ui.end_user_id
+        where u.id=#endUserId#
+        and rownum=1
+    </select>
+
+    <!-- 根据指定的用户ID数组批量查询用户信息 -->
+    <select id="getUserInfosByIds" parameterClass="list" resultMap="endUserInfoLogicResultMap">
+        select distinct
+        <include refid="endUserInfoDBSelectAllSql"/>,
+        <include refid="endUserInfoLogicSelectAllInEndUserSql"/>
+        from end_user_info ui,end_user u
+        where u.id = ui.end_user_id and ui.end_user_id in
+        <iterate open="(" close=")" conjunction=",">
+            #endUserIdList[]#
+        </iterate>
+    </select>
+
+    <!-- 根据ID查询单个简单用户（只查询部分常用字段） -->
+    <select id="getSimpleUserById" parameterClass="long" resultMap="simpleEndUserDBResultMap">
+        select id,
+        end_user_name,
+        end_user_email,
+        end_user_password,
+        valid_mobile_phone_num,
+        end_user_credit,
+        end_user_bought_amount,
+        end_user_bought_times,
+        mc_site_id,
+        version
+        from end_user
+        where id=#endUserId#
+    </select>
+
+    <!-- 根据ID查询单个简单用户信息 -->
+    <select id="getSimpleUserInfoById" parameterClass="long" resultMap="simpleEndUserInfoDBResultMap">
+        select end_user_id,version from end_user_info
+        where end_user_id=#endUserId# and rownum=1
+    </select>
+
+    <!-- 添加新用户 -->
+    <insert id="addUser" parameterClass="endUser">
+        <selectKey resultClass="long" keyProperty="id">
+            SELECT SEQ_END_USER_ID.NEXTVAL AS ID FROM DUAL
         </selectKey>
-       insert into good_receiver
-         (id,
-          end_user_id,
-          good_receiver_name,
-          good_receiver_address1,
-          good_receiver_phone,
-          good_receiver_mobile,
-          good_receiver_country_id,
-          good_receiver_city_id,
-          good_receiver_province_id,
-          good_receiver_county_id,
-          <isNotEmpty property="isDefault">
-          is_default,
-          </isNotEmpty>
-          good_receiver_post_code,
-          good_receiver_area_id
-          <isNotEmpty property="goodReceiverRecordName">
-          ,good_receiver_record_name
-          </isNotEmpty>
-          )
-          values
-          (#id#,
-           #endUserId#,
-           #goodReceiverName#,
-           #goodReceiverAddress1#,
-           #goodReceiverPhone#,
-           #goodReceiverMobile#,
-           #goodReceiverCountryId#,
-           #goodReceiverCityId#,
-           #goodReceiverProvinceId#,
-           #goodReceiverCountyId#,
-           <isNotEmpty property="isDefault">
-           #isDefault#,
-           </isNotEmpty>
-           #goodReceiverPostCode#,
-           #goodReceiverAreaId#
-           <isNotEmpty property="goodReceiverRecordName">
-           ,#goodReceiverRecordName#
-           </isNotEmpty>
-           )
+        insert into end_user
+        (id,
+        end_user_name,
+        mc_site_id
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPassword">
+            ,end_User_Password
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserRealName">
+            ,end_User_Real_Name
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.mobile">
+            ,mobile
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.phone">
+            ,phone
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserEmail">
+            ,end_User_Email
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPostCode">
+            ,end_User_Post_Code
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserSex">
+            ,end_User_Sex
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.ip">
+            ,ip
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.coCode">
+            ,co_Code
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.pinganEmpFlag">
+            ,pingan_Emp_Flag
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserRealRealName">
+            ,end_User_Real_Real_Name
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.isEmailActivate">
+            ,is_Email_Activate
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.idCard">
+            ,id_Card
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.validMobilePhoneNum">
+            ,valid_Mobile_Phone_Num
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserBoughtTimes">
+            ,end_User_Bought_Times
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.noticeInIndex">
+            ,notice_In_Index
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.siteType">
+            ,site_Type
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.isAgreeNewContract">
+            ,is_Agree_New_Contract
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.isAgreeAuth">
+            ,is_Agree_Auth
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.backOperatorId">
+            ,back_Operator_Id
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.isAnalysed">
+            ,is_Analysed
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserType">
+            ,end_User_Type
+        </isPropertyAvailable>
+        <isNotEmpty property="vipCardId">
+            ,vip_Card_Id
+        </isNotEmpty>
+        <isPropertyAvailable property="innerUpdateFlagMap.refuseConfirm">
+            ,refuse_Confirm
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserBoughtAmount">
+            ,end_User_Bought_Amount
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.pointFileYear">
+            ,point_File_Year
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPic">
+            ,end_User_Pic
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.rebateNum">
+            ,rebate_Num
+        </isPropertyAvailable>
+        )
+        values
+        (#id#,
+        #endUserName#,
+        #mcSiteId#
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPassword">
+            ,#endUserPassword#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserRealName">
+            ,#endUserRealName#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.mobile">
+            ,#mobile#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.phone">
+            ,#phone#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserEmail">
+            ,#endUserEmail#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPostCode">
+            ,#endUserPostCode#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserSex">
+            ,#endUserSex#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.ip">
+            ,#ip#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.coCode">
+            ,#coCode#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.pinganEmpFlag">
+            ,#pinganEmpFlag#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserRealRealName">
+            ,#endUserRealRealName#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.isEmailActivate">
+            ,#isEmailActivate#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.idCard">
+            ,#idCard#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.validMobilePhoneNum">
+            ,#validMobilePhoneNum#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserBoughtTimes">
+            ,#endUserBoughtTimes#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.noticeInIndex">
+            ,#noticeInIndex#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.siteType">
+            ,#siteType#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.isAgreeNewContract">
+            ,#isAgreeNewContract#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.isAgreeAuth">
+            ,#isAgreeAuth#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.backOperatorId">
+            ,#backOperatorId#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.isAnalysed">
+            ,#isAnalysed#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserType">
+            ,#endUserType#
+        </isPropertyAvailable>
+        <isNotEmpty property="vipCardId">
+            ,#vipCardId#
+        </isNotEmpty>
+        <isPropertyAvailable property="innerUpdateFlagMap.refuseConfirm">
+            ,#refuseConfirm#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserBoughtAmount">
+            ,#endUserBoughtAmount#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.pointFileYear">
+            ,#pointFileYear#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPic">
+            ,#endUserPic#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.rebateNum">
+            ,#rebateNum#
+        </isPropertyAvailable>
+        )
     </insert>
-	
-	<!-- 更新地址薄信息通过id和endUserId -->
-	<update id="updateGoodReceiverByIdAndEndUserId" parameterClass="goodReceiver">
-	    update good_receiver
-	      <dynamic prepend="set">
-	      <isPropertyAvailable property="innerUpdateFlagMap.goodReceiverCountryId" prepend="," removeFirstPrepend="true">
-	          good_receiver_country_id=#goodReceiverCountryId#
-	      </isPropertyAvailable>
-	      <isPropertyAvailable property="innerUpdateFlagMap.goodReceiverPhone" prepend="," removeFirstPrepend="true">
-	          good_receiver_phone=#goodReceiverPhone#
-	      </isPropertyAvailable>
-	      <isPropertyAvailable property="innerUpdateFlagMap.goodReceiverMobile" prepend="," removeFirstPrepend="true">
-	          good_receiver_mobile=#goodReceiverMobile#
-	      </isPropertyAvailable>
-	      <isNotEmpty property="goodReceiverName" prepend="," removeFirstPrepend="true">
-	          good_receiver_name=#goodReceiverName#
-	      </isNotEmpty>
-	      <isNotEmpty property="goodReceiverAddress1" prepend="," removeFirstPrepend="true">
-	          good_receiver_address1=#goodReceiverAddress1#
-	      </isNotEmpty>
-	      <isNotEmpty property="goodReceiverCityId" prepend="," removeFirstPrepend="true">
-	          good_receiver_city_id=#goodReceiverCityId#
-	      </isNotEmpty>
-	      <isNotEmpty property="goodReceiverProvinceId" prepend="," removeFirstPrepend="true">
-	          good_receiver_province_id=#goodReceiverProvinceId#
-	      </isNotEmpty>
-	      <isNotEmpty property="goodReceiverCountyId" prepend="," removeFirstPrepend="true">
-	          good_receiver_county_id=#goodReceiverCountyId#
-	      </isNotEmpty>
-	      <isNotEmpty property="goodReceiverPostCode" prepend="," removeFirstPrepend="true">
-	          good_receiver_post_code=#goodReceiverPostCode#
-	      </isNotEmpty>
-	      <isNotEmpty property="goodReceiverAreaId" prepend="," removeFirstPrepend="true">
-	          good_receiver_area_id=#goodReceiverAreaId#
-	      </isNotEmpty>
-	      <isNotEmpty property="goodReceiverRecordName" prepend="," removeFirstPrepend="true">
-	          good_receiver_record_name=#goodReceiverRecordName#
-	      </isNotEmpty>
-	      <isNotEmpty property="isDefault" prepend="," removeFirstPrepend="true">
-	          is_default=#isDefault#
-	      </isNotEmpty>
-	      </dynamic>
-	      where id=#id# and end_user_id=#endUserId#
-	</update>	
-	
-	<!-- 删除地址薄信息通过id和endUserId -->
-	<update id="deleteGoodReceiverByIdAndEndUserId" parameterClass="HashMap">
-	    update good_receiver
-	      set is_delete=1
-	      where id=#id# and end_user_id=#endUserId#
-	</update>
-	
-	<select id="getGoodReceiverPhoneById" parameterClass="long" resultClass="long">
+
+    <!-- 添加新用户信息 -->
+    <insert id="addUserInfo" parameterClass="endUserInfo">
+        <selectKey resultClass="long" keyProperty="endUserInfoId">
+            SELECT SEQ_USER_PROFILE_INFO_ID.NEXTVAL AS ID FROM DUAL
+        </selectKey>
+        insert into end_user_info
+        (
+        id,
+        end_User_Id,
+        modify_Date
+        <isPropertyAvailable property="innerUpdateFlagMap.marriage">
+            ,marriage
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.familyMembers">
+            ,family_Members
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.childrenAge">
+            ,children_Age
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.incomeDesc">
+            ,income_Desc
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.car">
+            ,car
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.companyName">
+            ,company_Name
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.industry">
+            ,industry
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.position">
+            ,position
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.workSeniority">
+            ,work_Seniority
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.degree">
+            ,degree
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.schoolTag">
+            ,school_Tag
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.schoolTagdate">
+            ,school_Tagdate
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.shoppingHabit">
+            ,shopping_Habit
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.buyType">
+            ,buy_Type
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.favoriteBrand">
+            ,favorite_Brand
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.favoriteStar">
+            ,favorite_Star
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.favoriteMovie">
+            ,favorite_Movie
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.favoritePersonage">
+            ,favorite_Personage
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.habitationStatus">
+            ,habitation_Status
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.userDegree">
+            ,user_Degree
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPicAuditDate">
+            ,end_User_Pic_Audit_Date
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPicAuditName">
+            ,end_User_Pic_Audit_Name
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPicDate">
+            ,end_User_Pic_Date
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPrePic">
+            ,end_User_Pre_Pic
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPicState">
+            ,end_User_Pic_State
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.auditOperatorName">
+            ,audit_Operator_Name
+        </isPropertyAvailable>
+        )
+        values
+        (
+        #endUserInfoId#,
+        #endUserId#,
+        sysdate
+        <isPropertyAvailable property="innerUpdateFlagMap.marriage">
+            ,#marriage#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.familyMembers">
+            ,#familyMembers#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.childrenAge">
+            ,#childrenAge#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.incomeDesc">
+            ,#incomeDesc#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.car">
+            ,#car#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.companyName">
+            ,#companyName#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.industry">
+            ,#industry#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.position">
+            ,#position#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.workSeniority">
+            ,#workSeniority#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.degree">
+            ,#degree#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.schoolTag">
+            ,#schoolTag#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.schoolTagdate">
+            ,#schoolTagdate#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.shoppingHabit">
+            ,#shoppingHabit#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.buyType">
+            ,#buyType#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.favoriteBrand">
+            ,#favoriteBrand#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.favoriteStar">
+            ,#favoriteStar#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.favoriteMovie">
+            ,#favoriteMovie#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.favoritePersonage">
+            ,#favoritePersonage#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.habitationStatus">
+            ,#habitationStatus#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.userDegree">
+            ,#userDegree#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPicAuditDate">
+            ,#endUserPicAuditDate#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPicAuditName">
+            ,#endUserPicAuditName#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPicDate">
+            ,#endUserPicDate#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPrePic">
+            ,#endUserPrePic#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPicState">
+            ,#endUserPicState#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.auditOperatorName">
+            ,#auditOperatorName#
+        </isPropertyAvailable>
+        )
+    </insert>
+
+    <!-- 更新用户信息 -->
+    <update id="updateUserById">
+        update end_user
+        set update_time = sysdate
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserRealName">
+            ,end_User_Real_Name = #endUserRealName#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.mobile">
+            ,mobile = #mobile#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.phone">
+            ,phone = #phone#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPostCode">
+            ,end_User_Post_Code = #endUserPostCode#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserSex">
+            ,end_User_Sex = #endUserSex#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.ip">
+            ,ip = #ip#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.pinganEmpFlag">
+            ,pingan_Emp_Flag = #pinganEmpFlag#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserRealRealName">
+            ,end_User_Real_Real_Name = #endUserRealRealName#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.isEmailActivate">
+            ,is_Email_Activate = #isEmailActivate#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.idCard">
+            ,id_Card = #idCard#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserBoughtTimes">
+            ,end_User_Bought_Times = #endUserBoughtTimes#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserLastBoughtDate">
+            ,end_User_Last_Bought_Date = #endUserLastBoughtDate#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.noticeInIndex">
+            ,notice_In_Index = #noticeInIndex#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.isAgreeNewContract">
+            ,is_agree_new_contract = #isAgreeNewContract#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.isAgreeAuth">
+            ,is_agree_auth = #isAgreeAuth#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.backOperatorId">
+            ,back_Operator_Id = #backOperatorId#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.isAnalysed">
+            ,is_Analysed = #isAnalysed#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserType">
+            ,end_User_Type = #endUserType#
+        </isPropertyAvailable>
+        <isNotEmpty property="vipCardId">
+            ,vip_Card_Id = #vipCardId#
+        </isNotEmpty>
+        <isPropertyAvailable property="innerUpdateFlagMap.refuseConfirm">
+            ,refuse_Confirm = #refuseConfirm#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserBoughtAmount">
+            ,end_User_Bought_Amount = #endUserBoughtAmount#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.pointFileYear">
+            ,point_File_Year = #pointFileYear#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPic">
+            ,end_User_Pic = #endUserPic#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.rebateNum">
+            ,rebate_Num = #rebateNum#
+        </isPropertyAvailable>
+        where id = #id#
+    </update>
+
+    <!-- 带乐观锁更新用户单个字段的值 -->
+    <update id="updateUserSingleColumnWithLockById">
+        update end_user
+        set update_time = sysdate,
+        $columnName$ = #columnValue#,
+        version = version +1
+        where id=#endUserId# and version = #version#
+    </update>
+
+    <!-- 不带乐观锁更新用户单个字段的值-->
+    <update id="updateUserSingleColumnWithoutLockById">
+        update end_user
+        set update_time = sysdate,
+        $columnName$ = #columnValue#
+        where id=#endUserId#
+    </update>
+
+    <!-- 更新end_user表中未迁移的字段 -->
+    <update id="updateUserInfoInUserById">
+        update end_user
+        set update_time = sysdate
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserBirthday">
+            ,end_User_Birthday = #endUserBirthday#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserDirectoryNum">
+            ,end_User_Directory_Num = #endUserDirectoryNum#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserReferrer">
+            ,end_User_Referrer = #endUserReferrer#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserAddressId">
+            ,end_User_Address_Id = #endUserAddressId#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserIm">
+            ,end_User_Im = #endUserIm#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserImType">
+            ,end_User_Im_Type = #endUserImType#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserUrl">
+            ,end_User_Url = #endUserUrl#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.needEMagine">
+            ,need_E_Magine = #needEMagine#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserDegree">
+            ,end_User_Degree = #endUserDegree#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserHabitationstatus">
+            ,end_User_Habitationstatus = #endUserHabitationstatus#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserLiveId">
+            ,end_User_Live_Id = #endUserLiveId#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserBelow18">
+            ,end_User_Below_18 = #endUserBelow18#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserCareerId">
+            ,end_User_Career_Id = #endUserCareerId#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserShoppingHabit">
+            ,end_User_Shopping_Habit = #endUserShoppingHabit#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.needSms">
+            ,need_Sms = #needSms#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserLittleChildBod">
+            ,end_User_Little_Child_Bod = #endUserLittleChildBod#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserValidRefererNum">
+            ,end_User_Valid_Referer_Num = #endUserValidRefererNum#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserTotalRefererNum">
+            ,end_User_Total_Referer_Num = #endUserTotalRefererNum#
+        </isPropertyAvailable>
+        <isNotEmpty property="endUserGoldNum">
+            ,end_User_Gold_Num = #endUserGoldNum#
+        </isNotEmpty>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserMaxim">
+            ,end_User_Maxim = #endUserMaxim#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserMembershipRenewDate">
+            ,end_User_Membership_Renew_Date = #endUserMembershipRenewDate#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.addressIsHidden">
+            ,address_Is_Hidden = #addressIsHidden#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.sexIsHidden">
+            ,sex_Is_Hidden = #sexIsHidden#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.degreeIsHidden">
+            ,degree_Is_Hidden = #degreeIsHidden#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.birthdayIsHidden">
+            ,birthday_Is_Hidden = #birthdayIsHidden#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.urlIsHidden">
+            ,url_Is_Hidden = #urlIsHidden#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.maximIsHidden">
+            ,maxim_Is_Hidden = #maximIsHidden#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.src">
+            ,src = #src#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserShoppingReason">
+            ,end_User_Shopping_Reason = #endUserShoppingReason#
+        </isPropertyAvailable>
+        <isNotEmpty property="registerFrom">
+            ,register_From = #registerFrom#
+        </isNotEmpty>
+        <isPropertyAvailable property="innerUpdateFlagMap.isYihaodianClerk">
+            ,is_Yihaodian_Clerk = #isYihaodianClerk#
+        </isPropertyAvailable>
+        <isNotEmpty property="isActivate">
+            ,is_Activate = #isActivate#
+        </isNotEmpty>
+        <isNotEmpty property="privacy">
+            ,privacy = #privacy#
+        </isNotEmpty>
+        <isNotEmpty property="externalUserLevel">
+            ,external_User_Level = #externalUserLevel#
+        </isNotEmpty>
+        <isNotEmpty property="userActionPrivacy">
+            ,user_Action_Privacy = #userActionPrivacy#
+        </isNotEmpty>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserRemark">
+            ,end_User_Remark = #endUserRemark#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.isCorporationUser">
+            ,is_Corporation_User = #isCorporationUser#
+        </isPropertyAvailable>
+        where id = #endUserId#
+    </update>
+
+    <!-- 更新用户详情信息 -->
+    <update id="updateUserInfoById">
+        update end_user_info
+        set modify_date = sysdate
+        <isPropertyAvailable property="innerUpdateFlagMap.marriage">
+            ,marriage = #marriage#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.familyMembers">
+            ,family_Members = #familyMembers#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.childrenAge">
+            ,children_Age = #childrenAge#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.incomeDesc">
+            ,income_Desc = #incomeDesc#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.car">
+            ,car = #car#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.companyName">
+            ,company_Name = #companyName#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.industry">
+            ,industry = #industry#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.position">
+            ,position = #position#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.workSeniority">
+            ,work_Seniority = #workSeniority#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.degree">
+            ,degree = #degree#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.schoolTag">
+            ,school_Tag = #schoolTag#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.schoolTagdate">
+            ,school_Tagdate = #schoolTagdate#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.shoppingHabit">
+            ,shopping_Habit = #shoppingHabit#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.buyType">
+            ,buy_Type = #buyType#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.favoriteBrand">
+            ,favorite_Brand = #favoriteBrand#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.favoriteStar">
+            ,favorite_Star = #favoriteStar#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.favoriteMovie">
+            ,favorite_Movie = #favoriteMovie#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.favoritePersonage">
+            ,favorite_Personage = #favoritePersonage#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.habitationStatus">
+            ,habitation_Status = #habitationStatus#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.userDegree">
+            ,user_Degree = #userDegree#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPicAuditDate">
+            ,end_User_Pic_Audit_Date = #endUserPicAuditDate#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPicAuditName">
+            ,end_User_Pic_Audit_Name = #endUserPicAuditName#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPicDate">
+            ,end_User_Pic_Date = #endUserPicDate#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPrePic">
+            ,end_User_Pre_Pic = #endUserPrePic#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.endUserPicState">
+            ,end_User_Pic_State = #endUserPicState#
+        </isPropertyAvailable>
+        <isPropertyAvailable property="innerUpdateFlagMap.auditOperatorName">
+            ,audit_Operator_Name = #auditOperatorName#
+        </isPropertyAvailable>
+        where end_user_id = #endUserId#
+    </update>
+
+    <!-- 查询与指定用户名（END_USER_NAME）或用户邮箱（END_USER_EMAIL）或用户绑定手机号（VALID_MOBILE_PHONE_NUM）和MC_SITE_ID 都匹配的用户个数(常用于重复性检查)     -->
+    <select id="getUserCountByNameOrEmailOrValidPhone" resultClass="int">
+        select count(1) from end_user u
+        <dynamic prepend="where">
+            <isNotEmpty property="endUserId">
+                u.id &lt;&gt; #endUserId# and
+            </isNotEmpty>
+
+            <isNotEmpty property="endUserName">
+                u.end_user_name = #endUserName#
+            </isNotEmpty>
+            <isNotEmpty property="endUserEmail">
+                (u.end_user_name = #endUserEmail# or
+                u.end_user_email = #endUserEmail#)
+            </isNotEmpty>
+            <isNotEmpty property="validMobilePhoneNum">
+                (u.end_user_name =
+                to_char(#validMobilePhoneNum#) or u.valid_mobile_phone_num =
+                #validMobilePhoneNum#)
+            </isNotEmpty>
+
+            <isNotEmpty property="mcsiteid">
+                and u.mc_site_id = #mcsiteid#
+            </isNotEmpty>
+        </dynamic>
+    </select>
+
+    <!-- 查询与指定用户名（END_USER_NAME）或用户邮箱（END_USER_EMAIL）或用户绑定手机号（VALID_MOBILE_PHONE_NUM）和MC_SITE_ID 都匹配的第一个用户     -->
+    <select id="getUsersByNameOrEmailOrValidPhone" resultMap="endUserLogicResultMap">
+        select
+        <include refid="endUserLogicSelectAllSql"/>
+        from end_user u
+        <dynamic prepend="where">
+            <isNotEmpty property="endUserName">
+                u.end_user_name =
+                #endUserName#
+            </isNotEmpty>
+            <isNotEmpty property="endUserEmail">
+                (u.end_user_name =
+                #endUserEmail# or u.end_user_email = #endUserEmail#)
+            </isNotEmpty>
+            <isNotEmpty property="validMobilePhoneNum">
+                (u.end_user_name =
+                to_char(#validMobilePhoneNum#) or u.valid_mobile_phone_num =
+                #validMobilePhoneNum#)
+            </isNotEmpty>
+            <isNotEmpty property="mcsiteid">
+                and u.mc_site_id = #mcsiteid#
+            </isNotEmpty>
+        </dynamic>
+    </select>
+
+    <!-- 获得endUserId的状态码     -->
+    <select id="getStatusOfEndUserId" resultClass="int">
+        select decode(ui.end_user_id, null, u.version, -2) ret
+        from end_user u left join end_user_info ui on u.id = ui.end_user_id
+        where u.id = #endUserId# and rownum = 1
+    </select>
+
+    <!-- 根据用户ID获取用户信用值     -->
+    <select id="getUserCreditById" resultClass="int">
+        select nvl(end_user_credit,0) endUserCredit from end_user where id=#endUserId#
+    </select>
+
+    <!-- 更新用户登录信息通过ID -->
+    <update id="updateUserAfterLoginById" parameterClass="HashMap">
+        update end_user
+        set update_time = sysdate,
+        BEFORE_LAST_LOGIN_DATE = END_USER_LAST_LOGIN_DATE,
+        END_USER_LAST_LOGIN_DATE = sysdate,
+        ip = #ip#,
+        END_USER_LOGIN_TIMES = END_USER_LOGIN_TIMES + 1
+        WHERE id = #userId#
+    </update>
+
+    <!-- 更新用户登录信息通过ID -->
+    <update id="batchUpdateUserPicAudit" parameterClass="HashMap">
+        update end_user_info
+        set modify_date = sysdate,
+        end_user_pic_audit_date = sysdate,
+        end_user_pic_state = #endUserPicState#,
+        audit_operator_name = #auditOperatorName#
+        WHERE end_user_id in
+        <iterate property="endUserIdArr" open="(" close=")" conjunction=",">
+            #endUserIdArr[]#
+        </iterate>
+    </update>
+
+    <!-- 新增地址薄信息 -->
+    <insert id="addGoodReceiver" parameterClass="goodReceiver">
+        <selectKey resultClass="long" keyProperty="id">
+            SELECT SEQ_GOOD_RECEIVER_ID.NEXTVAL AS id FROM DUAL
+        </selectKey>
+        insert into good_receiver
+        (id,
+        end_user_id,
+        good_receiver_name,
+        good_receiver_address1,
+        good_receiver_phone,
+        good_receiver_mobile,
+        good_receiver_country_id,
+        good_receiver_city_id,
+        good_receiver_province_id,
+        good_receiver_county_id,
+        <isNotEmpty property="isDefault">
+            is_default,
+        </isNotEmpty>
+        good_receiver_post_code,
+        good_receiver_area_id
+        <isNotEmpty property="goodReceiverRecordName">
+            ,good_receiver_record_name
+        </isNotEmpty>
+        )
+        values
+        (#id#,
+        #endUserId#,
+        #goodReceiverName#,
+        #goodReceiverAddress1#,
+        #goodReceiverPhone#,
+        #goodReceiverMobile#,
+        #goodReceiverCountryId#,
+        #goodReceiverCityId#,
+        #goodReceiverProvinceId#,
+        #goodReceiverCountyId#,
+        <isNotEmpty property="isDefault">
+            #isDefault#,
+        </isNotEmpty>
+        #goodReceiverPostCode#,
+        #goodReceiverAreaId#
+        <isNotEmpty property="goodReceiverRecordName">
+            ,#goodReceiverRecordName#
+        </isNotEmpty>
+        )
+    </insert>
+
+    <!-- 更新地址薄信息通过id和endUserId -->
+    <update id="updateGoodReceiverByIdAndEndUserId" parameterClass="goodReceiver">
+        update good_receiver
+        <dynamic prepend="set">
+            <isPropertyAvailable property="innerUpdateFlagMap.goodReceiverCountryId" prepend=","
+                                 removeFirstPrepend="true">
+                good_receiver_country_id=#goodReceiverCountryId#
+            </isPropertyAvailable>
+            <isPropertyAvailable property="innerUpdateFlagMap.goodReceiverPhone" prepend="," removeFirstPrepend="true">
+                good_receiver_phone=#goodReceiverPhone#
+            </isPropertyAvailable>
+            <isPropertyAvailable property="innerUpdateFlagMap.goodReceiverMobile" prepend="," removeFirstPrepend="true">
+                good_receiver_mobile=#goodReceiverMobile#
+            </isPropertyAvailable>
+            <isNotEmpty property="goodReceiverName" prepend="," removeFirstPrepend="true">
+                good_receiver_name=#goodReceiverName#
+            </isNotEmpty>
+            <isNotEmpty property="goodReceiverAddress1" prepend="," removeFirstPrepend="true">
+                good_receiver_address1=#goodReceiverAddress1#
+            </isNotEmpty>
+            <isNotEmpty property="goodReceiverCityId" prepend="," removeFirstPrepend="true">
+                good_receiver_city_id=#goodReceiverCityId#
+            </isNotEmpty>
+            <isNotEmpty property="goodReceiverProvinceId" prepend="," removeFirstPrepend="true">
+                good_receiver_province_id=#goodReceiverProvinceId#
+            </isNotEmpty>
+            <isNotEmpty property="goodReceiverCountyId" prepend="," removeFirstPrepend="true">
+                good_receiver_county_id=#goodReceiverCountyId#
+            </isNotEmpty>
+            <isNotEmpty property="goodReceiverPostCode" prepend="," removeFirstPrepend="true">
+                good_receiver_post_code=#goodReceiverPostCode#
+            </isNotEmpty>
+            <isNotEmpty property="goodReceiverAreaId" prepend="," removeFirstPrepend="true">
+                good_receiver_area_id=#goodReceiverAreaId#
+            </isNotEmpty>
+            <isNotEmpty property="goodReceiverRecordName" prepend="," removeFirstPrepend="true">
+                good_receiver_record_name=#goodReceiverRecordName#
+            </isNotEmpty>
+            <isNotEmpty property="isDefault" prepend="," removeFirstPrepend="true">
+                is_default=#isDefault#
+            </isNotEmpty>
+        </dynamic>
+        where id=#id# and end_user_id=#endUserId#
+    </update>
+
+    <!-- 删除地址薄信息通过id和endUserId -->
+    <update id="deleteGoodReceiverByIdAndEndUserId" parameterClass="HashMap">
+        update good_receiver
+        set is_delete=1
+        where id=#id# and end_user_id=#endUserId#
+    </update>
+
+    <select id="getGoodReceiverPhoneById" parameterClass="long" resultClass="long">
         select nvl(good_receiver_mobile, nvl(valid_mobile_phone_num, mobile)) phone
-          from (select u.mobile, u.valid_mobile_phone_num, r.good_receiver_mobile
-                  from end_user u
-                  left join good_receiver r
-                    on u.id = r.end_user_id
-                   and r.is_delete = 0
-                   and r.end_user_id = #endUserId#
-                 where u.id = #endUserId#
-                 order by r.LATEST_USE_DATE desc, r.create_time desc) t
-         where rownum = 1	   
-	</select>
+        from (select u.mobile, u.valid_mobile_phone_num, r.good_receiver_mobile
+        from end_user u
+        left join good_receiver r
+        on u.id = r.end_user_id
+        and r.is_delete = 0
+        and r.end_user_id = #endUserId#
+        where u.id = #endUserId#
+        order by r.LATEST_USE_DATE desc, r.create_time desc) t
+        where rownum = 1
+    </select>
 </sqlMapConfig>
 

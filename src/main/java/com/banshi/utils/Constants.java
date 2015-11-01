@@ -4,7 +4,6 @@ package com.banshi.utils;
 public class Constants {
 
 
-
     /*字符集UTF-8*/
     public static final String CHARSET_UTF_8 = "UTF-8";
 

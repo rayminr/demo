@@ -26,7 +26,7 @@ public class SessionServiceTest extends BaseServiceTest {
         Date newTime = new Date(1446374902876l + expireTime);
         Date newTime2 = new Date(1446374902876l + maxExpireTime);
 
-        Logger.debug(this, String.format("expireTime(mis) = %s", expireTime/60/1000));
+        Logger.debug(this, String.format("expireTime(mis) = %s", expireTime / 60 / 1000));
         Logger.debug(this, String.format("oldTime = %s", DateUtil.formatDate(oldTime, DateUtil.YYYY_MM_DD_HH_MI_SS)));
         Logger.debug(this, String.format("newTime = %s", DateUtil.formatDate(newTime, DateUtil.YYYY_MM_DD_HH_MI_SS)));
         Logger.debug(this, String.format("newTime2 = %s", DateUtil.formatDate(newTime2, DateUtil.YYYY_MM_DD_HH_MI_SS)));

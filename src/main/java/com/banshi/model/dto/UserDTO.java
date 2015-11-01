@@ -8,12 +8,16 @@ public class UserDTO extends BaseDTO {
     private Long id;
     // 用户名
     private String name;
+    // 用户名
+    private String nameDisp;
     // 用户昵称
     private String nickName;
     // 手机号码
     private String mobile;
     // 电子邮箱
     private String email;
+    // 电子邮箱
+    private String emailDisp;
     // 密码
     private String pwd;
     // 用户类型
@@ -59,6 +63,14 @@ public class UserDTO extends BaseDTO {
         this.name = name;
     }
 
+    public String getNameDisp() {
+        return nameDisp;
+    }
+
+    public void setNameDisp(String nameDisp) {
+        this.nameDisp = nameDisp;
+    }
+
     public String getNickName() {
         return nickName;
     }
@@ -81,6 +93,14 @@ public class UserDTO extends BaseDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getEmailDisp() {
+        return emailDisp;
+    }
+
+    public void setEmailDisp(String emailDisp) {
+        this.emailDisp = emailDisp;
     }
 
     public String getPwd() {

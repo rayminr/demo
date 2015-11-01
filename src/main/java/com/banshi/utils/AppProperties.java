@@ -37,6 +37,7 @@ public class AppProperties extends PropertyPlaceholderConfigurer {
 
     /**
      * 根据key获取对应的value
+     *
      * @param key
      * @return
      */
@@ -46,6 +47,7 @@ public class AppProperties extends PropertyPlaceholderConfigurer {
 
     /**
      * 根据key的前缀获取K/V的集合
+     *
      * @param prefixKey
      * @return
      */

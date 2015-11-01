@@ -1,8 +1,6 @@
 package com.banshi.model.dao;
 
 
-
-import com.banshi.service.UserService;
 import org.unitils.UnitilsJUnit4;
 import org.unitils.database.annotations.Transactional;
 import org.unitils.database.util.TransactionMode;

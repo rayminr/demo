@@ -47,7 +47,7 @@ public class LoginOutController {
                               HttpServletRequest request,
                               HttpServletResponse response) throws Exception {
 
-        UserVO userVo = loginService.login(account, pwd, validateCode, request, response);
+        UserVO userVo = loginService.login("PC",account, pwd, validateCode, request, response);
         if (!UserVO.RET_CODE_SUCCESS.equals(userVo.getRetCode())) {
             return new ModelAndView("user/login", "user", userVo);
         } else {

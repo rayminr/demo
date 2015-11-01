@@ -12,13 +12,8 @@ public class SessionDTO extends BaseDTO {
     private String loginAgent;
     // 登录用户IP
     private String loginIp;
-
-    // session ticketId
-    private String ticketId;
-    // session创建时间
-    private Long ticketCreateTime;
-    // session访问时间
-    private Long ticketAccessTime;
+    // 登录用户来源
+    private String loginSrc;
 
     // 用户ID
     private Long userId;
@@ -26,8 +21,13 @@ public class SessionDTO extends BaseDTO {
     private String userName;
     // 用户类型
     private String userType;
-    // 用户等级
-    private String userLevel;
+
+    // session ticketId
+    private String ticketId;
+    // session创建时间
+    private Long ticketCreateTime;
+    // session访问时间
+    private Long ticketAccessTime;
 
     // 创建时间
     private Date createdAt;
@@ -70,28 +70,12 @@ public class SessionDTO extends BaseDTO {
         this.loginIp = loginIp;
     }
 
-    public String getTicketId() {
-        return ticketId;
+    public String getLoginSrc() {
+        return loginSrc;
     }
 
-    public void setTicketId(String ticketId) {
-        this.ticketId = ticketId;
-    }
-
-    public Long getTicketCreateTime() {
-        return ticketCreateTime;
-    }
-
-    public void setTicketCreateTime(Long ticketCreateTime) {
-        this.ticketCreateTime = ticketCreateTime;
-    }
-
-    public Long getTicketAccessTime() {
-        return ticketAccessTime;
-    }
-
-    public void setTicketAccessTime(Long ticketAccessTime) {
-        this.ticketAccessTime = ticketAccessTime;
+    public void setLoginSrc(String loginSrc) {
+        this.loginSrc = loginSrc;
     }
 
     public Long getUserId() {
@@ -118,12 +102,28 @@ public class SessionDTO extends BaseDTO {
         this.userType = userType;
     }
 
-    public String getUserLevel() {
-        return userLevel;
+    public String getTicketId() {
+        return ticketId;
     }
 
-    public void setUserLevel(String userLevel) {
-        this.userLevel = userLevel;
+    public void setTicketId(String ticketId) {
+        this.ticketId = ticketId;
+    }
+
+    public Long getTicketCreateTime() {
+        return ticketCreateTime;
+    }
+
+    public void setTicketCreateTime(Long ticketCreateTime) {
+        this.ticketCreateTime = ticketCreateTime;
+    }
+
+    public Long getTicketAccessTime() {
+        return ticketAccessTime;
+    }
+
+    public void setTicketAccessTime(Long ticketAccessTime) {
+        this.ticketAccessTime = ticketAccessTime;
     }
 
     public Date getCreatedAt() {

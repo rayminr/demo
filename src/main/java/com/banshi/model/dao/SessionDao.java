@@ -27,10 +27,10 @@ public class SessionDao extends BaseDao {
      * @return
      */
     public int updateByTicketId(SessionDTO sessionDTO, Long maxExpireTime) {
-        Map<String,Object> cndMap = new HashMap<String, Object>();
-        cndMap.put("ticketId",sessionDTO.getTicketId());
-        cndMap.put("tktAccessTime",sessionDTO.getTicketAccessTime());
-        cndMap.put("maxExpireTime",maxExpireTime);
+        Map<String, Object> cndMap = new HashMap<String, Object>();
+        cndMap.put("ticketId", sessionDTO.getTicketId());
+        cndMap.put("tktAccessTime", sessionDTO.getTicketAccessTime());
+        cndMap.put("maxExpireTime", maxExpireTime);
         return update("Session.updateSessionByTicketId", sessionDTO);
     }
 
@@ -41,10 +41,10 @@ public class SessionDao extends BaseDao {
      * @return
      */
     public SessionDTO getSessionByTicketId(String ticketId, Long maxExpireTime) {
-        Map<String,Object> cndMap = new HashMap<String, Object>();
-        cndMap.put("ticketId",ticketId);
-        cndMap.put("maxExpireTime",maxExpireTime);
-        return (SessionDTO)queryOne("Session.getSessionByTicketId", cndMap);
+        Map<String, Object> cndMap = new HashMap<String, Object>();
+        cndMap.put("ticketId", ticketId);
+        cndMap.put("maxExpireTime", maxExpireTime);
+        return (SessionDTO) queryOne("Session.getSessionByTicketId", cndMap);
     }
 
 }

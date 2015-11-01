@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMapConfig
-PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
-"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
 
 <sqlMapConfig>
 
     <settings enhancementEnabled="true" maxTransactions="40" maxRequests="32" maxSessions="10"/>
 
     <!-- SQL 映射文件列表 -->
-    <sqlMap resource="ibatis/user/user.xml" />
-    <sqlMap resource="ibatis/user/login_log.xml" />
-    <sqlMap resource="ibatis/user/session.xml" />
+    <sqlMap resource="ibatis/user/user.xml"/>
+    <sqlMap resource="ibatis/user/login_log.xml"/>
+    <sqlMap resource="ibatis/user/session.xml"/>
 </sqlMapConfig>

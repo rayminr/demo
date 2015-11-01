@@ -5,7 +5,7 @@
     <typeAliases>
         <typeAlias alias="UserDTO" type="com.banshi.model.dto.UserDTO"/>
         <typeAlias alias="LoginLogDTO" type="com.banshi.model.dto.LoginLogDTO"/>
-        <typeAlias alias="sessionDTO" type="com.banshi.model.dto.SessionDTO" />
+        <typeAlias alias="sessionDTO" type="com.banshi.model.dto.SessionDTO"/>
     </typeAliases>
 
     <mappers>

@@ -3,21 +3,20 @@
 <mapper namespace="Session">
 
     <resultMap id="sessionMap" type="sessionDTO">
-        <result property="id" column="ID" />
-        <result property="userId" column="USER_ID" />
-        <result property="userName" column="USER_NAME" />
-        <result property="userType" column="USER_TYPE" />
-        <result property="userLevel" column="USER_LEVEL" />
-        <result property="loginAccount" column="LOGIN_ACCOUNT" />
-        <result property="loginAgent" column="LOGIN_AGENT" />
-        <result property="loginIp" column="LOGIN_IP" />
-        <result property="ticketId" column="TICKET_ID" />
-        <result property="ticketCreateTime" column="TICKET_CREATE_TIME" />
-        <result property="ticketAccessTime" column="TICKET_ACCESS_TIME" />
-        <result property="createdAt" column="CREATED_AT" />
-        <result property="createdBy" column="CREATED_BY" />
-        <result property="updatedAt" column="UPDATED_AT" />
-        <result property="updatedBy" column="UPDATED_BY" />
+        <result property="id" column="ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="userType" column="USER_TYPE"/>
+        <result property="loginAccount" column="LOGIN_ACCOUNT"/>
+        <result property="loginAgent" column="LOGIN_AGENT"/>
+        <result property="loginIp" column="LOGIN_IP"/>
+        <result property="ticketId" column="TICKET_ID"/>
+        <result property="ticketCreateTime" column="TICKET_CREATE_TIME"/>
+        <result property="ticketAccessTime" column="TICKET_ACCESS_TIME"/>
+        <result property="createdAt" column="CREATED_AT"/>
+        <result property="createdBy" column="CREATED_BY"/>
+        <result property="updatedAt" column="UPDATED_AT"/>
+        <result property="updatedBy" column="UPDATED_BY"/>
     </resultMap>
 
     <!-- 根据sessionDTO插入T_SESSION -->
@@ -27,7 +26,6 @@
         USER_ID,
         USER_NAME,
         USER_TYPE,
-        USER_LEVEL,
         LOGIN_ACCOUNT,
         LOGIN_AGENT,
         LOGIN_IP,
@@ -35,14 +33,15 @@
         TICKET_CREATE_TIME,
         TICKET_ACCESS_TIME,
         CREATED_BY,
-        UPDATED_BY
+        CREATED_AT,
+        UPDATED_BY,
+        UPDATED_AT
         )
         VALUES
         (
         #{userId},
         #{userName},
         #{userType},
-        #{userLevel},
         #{loginAccount},
         #{loginAgent},
         #{loginIp},
@@ -50,7 +49,9 @@
         #{ticketCreateTime},
         #{ticketAccessTime},
         'SYS',
-        'SYS'
+        DEFAULT,
+        'SYS',
+        DEFAULT
         )
     </insert>
 
@@ -69,7 +70,6 @@
             USER_ID,
             USER_NAME,
             USER_TYPE,
-            USER_LEVEL,
             LOGIN_ACCOUNT,
             LOGIN_AGENT,
             LOGIN_IP,
